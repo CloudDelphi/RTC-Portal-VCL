@@ -1,0 +1,72 @@
+package rtcPortal;
+
+{$R *.res}
+{$R 'rtcPortalCli.dcr'}
+{$R 'rtcpFileTrans.dcr'}
+{$R 'rtcpChat.dcr'}
+{$R 'rtcpDesktopHost.dcr'}
+{$R 'rtcPortalMod.dcr'}
+{$R 'rtcpDesktopControl.dcr'}
+{$R 'rtcpDesktopControlUI.dcr'}
+{$R 'rtcPortalHttpCli.dcr'}
+{$R 'rtcpCustomComm.dcr'}
+{$R 'rtcpFileExplore.dcr'}
+{$R 'rtcPortalGate.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'RTC Portal 5'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  rtcSDK,
+  designide;
+
+contains
+  rtcPortalReg in 'rtcPortalReg.pas',
+  rtcpDesktopControlUI in 'rtcpDesktopControlUI.pas',
+  rtcpFileTransUI in 'rtcpFileTransUI.pas',
+  rtcpDesktopControl in 'rtcpDesktopControl.pas',
+  rtcScrCapture in 'rtcScrCapture.pas',
+  rtcCompress in 'rtcCompress.pas',
+  dfmVideoDriver in 'dfmVideoDriver.pas',
+  rtcScrUtils in 'rtcScrUtils.pas',
+  rtcWinLogon in 'rtcWinLogon.pas',
+  rtcpDesktopHost in 'rtcpDesktopHost.pas',
+  rtcPortalMod in 'rtcPortalMod.pas',
+  rtcpFileTrans in 'rtcpFileTrans.pas',
+  rtcPortalCli in 'rtcPortalCli.pas',
+  rtcpChat in 'rtcpChat.pas',
+  rtcpChatUI in 'rtcpChatUI.pas',
+  rtcScrPlayback in 'rtcScrPlayback.pas',
+  rtcPortalHttpCli in 'rtcPortalHttpCli.pas',
+  MouseAInf in 'MouseAInf.pas',
+  rtcpDesktopConst in 'rtcpDesktopConst.pas',
+  rtcpCustomComm in 'rtcpCustomComm.pas',
+  rtcpFileUtils in 'rtcpFileUtils.pas',
+  rtcpFileExplore in 'rtcpFileExplore.pas',
+  rtcTSCli in 'rtcTSCli.pas',
+  rtc_Compress in 'rtc_Compress.pas',
+  rtcPortalGate in 'rtcPortalGate.pas';
+
+end.

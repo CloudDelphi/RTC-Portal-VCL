@@ -1,0 +1,33 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = RtcHost.exe RtcControl.exe RtcGateway.exe RtcGateway_ISAPI.dll \
+  RtcViewer.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+RtcHost.exe: Demos\Clients\RtcHost.dpr
+  $(DCC)
+
+RtcControl.exe: Demos\Clients\RtcControl.dpr
+  $(DCC)
+
+RtcGateway.exe: Demos\Gateway\RtcGateway.dpr
+  $(DCC)
+
+RtcGateway_ISAPI.dll: Demos\Gateway\RtcGateway_ISAPI.dpr
+  $(DCC)
+
+RtcViewer.exe: Demos\Clients\RtcViewer.dpr
+  $(DCC)
+
+

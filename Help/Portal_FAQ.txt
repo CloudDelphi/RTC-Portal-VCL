@@ -1,0 +1,514 @@
+** RTC Portal F.A.Q. **
+
+
+1. Portal Gateway
+
+This is the main component of RTC Portal, because it controls the communication between Portal clients, eg. Portal Hosts and Portal Controls/Viewers.
+
+All other components operate by submitting requests to a Gateway component and receiving responses to those requests. A Gateway component can provide services to any machine that can reach its address. A key factor in the setup of any Nexus Portal network is to provide a Gateway with a good PING to each of the machines it services.
+
+All user authentications occur at the Gateway. Every request and every response is handled by a Gateway.
+
+1.1. How do I set up a Gateway?
+
+The PC where you will install the Gateway should have an IP inside your LAN (internal IP) which should not be changing. You also need an address on the internet ("static IP"), which you can also get by using the www.DynDNS.org service (you will get a name like "myhomegateway.myip.com").
+
+To set up the Gateway, start the RTC Gateway on your "Gateway PC", enter the "Port" you want to use (any free Port number: between 1 and 65535), enter the "Secure Key" you want to use (leave empty, or use any phrase you want) and then click "START". You can use any Port you want, but keep in mind that you might need to use port 80, since that is the HTTP Port which will allow even users behind HTTP Proxy servers to connect.
+
+After you click "START", if the Port you chose is available on your Gateway PC, your window will change to "Logged-in users" and your Gateway will be ready. If that doesn't happen, you will most likely see the Text "Error 10048 in function Bind - Address or Port already is use", which means that another application is using the Port, so ... you should pick a different Port and try again.
+
+You then need to configure your internet router/firewall to forward the Port you chose for the Gateway (for example, Port 80) to the Gateway PC inside your LAN (you can use "ipconfig" in command prompt to check the IP address of the PC you are at), so that all connections coming to your "Gateway Port" are forwarded (by your internet router) to your Gateway PC. For example, if you chose to use the Port 80 and your PC is on LAN IP 192.168.1.100, set up your Router to forward connections on TCP Port 80 to LAN IP 192.168.1.100.
+
+Your customers will be using RTC Host to connect to your Gateway by using your "Internet/WAN IP" (or the domain name you have registered at a service like www.DydDNS.org) and the Port you chose for your Gateway (for example, 80).
+
+You will use RTC Control to connect to the same Gateway. If you will be inside the same LAN as your Gateway, you can use the LAN IP. If you are "on the road", you can connect to the Gateway using your "Internet/WAN IP" (same as your customers using RTC Host).
+
+If you would like to have the Gateway running as a Windows Service, you can stop the Gateway after you have set it up to work as a normal Windows application, then click "Install" and "Run". You will need Administrator rights to install the Gateway Service. And on Windows Vista, you will also need to go to Gateway EXE properties and check "Run as Administrator" before you can install the Gateway as a Service.
+
+1.2. What is the "Local Port"?
+
+This is the port number on which this Gateway will be waiting for incomming connections. It can be any valid port number not in use by any other app.
+
+The best choice would be to use Port 80, since that will allow as good as any PC with Internet access to connect to your Gateway, but you can use another Port in case Port 80 is already taken.
+
+Many ports numbered below 1025 are pre-assigned, so you will have the best chance to find a free Port in the range 1025...65535, although some of these may also be in use. If the port number you choose is in use, you will see an "Error 10048" message in the status box at the bottom of the Gateway dialog.
+
+1.3. What is the "Secure Key"?
+
+If this is not blank, all communication between this Gateway and any other component will be encrypted using this specific Key. All other components must have exactly the same Secure Key to communicate with this Gateway.
+
+A Secure Key is not necessary for data encryption, but it will make your public network into a closed private network, since only users knowing the Secure Key will be able to connect.
+
+Even if you do not use a Secure Key (leave it empty), all communication will still be encrypted, but it will be done by using a random public key. Working with the Secure Key empty is comparable to using server-side SSL encryption, where each Client generates a random Key, sends it to the Server and gets another random key from the Server, then the two use the keys for a two-way communication.
+
+Gateways on a secure network or LAN do not need a Secure Key, although one will be used if it is entered. Gateways on non-secure networks, such as the Internet, should have a Secure Key to avoid uninvited guests from connecting to the Gateway.
+
+1.4. What is the "Bind To" IP?
+
+If you have more than one IP address on your PC, for example 2 network cards or adapters, you can make the Gateway use only one of the IPs, so you can use another app on the other IP. Without "bind", the Gateway occupies the Port on all local IP addresses.
+
+1.5. What is "as ISAPI"?
+
+This feature is used to emulate the Gateway running as an ISAPI inside a WebServer with ISAPI support, but using the normal RTC Server with Remote Functions instead of ISAPI. The contents should be the location where the ISAPI would normally be accessible from your WebServer. This feature does not make the Gateway actually run as an ISAPI extension, it just allows the operator to address the Gateway as if it were an ISAPI extension. It is mostly used to test the Control, Viewer, and Host components.
+
+1.6. How can I run the Gateway as a Windows Service ?
+
+  1) Choose a Local Port. 
+  2) Enter a Secure Key if necessary. 
+  3) Enter the BindTo IP if necessary. 
+  4) The "as ISAPI'" checkbox should not be checked. 
+  5) Click "Start" to see if the Gateway will work with your settings.
+  6) If the Gateway works, click STOP and continue with step (7).
+  7) Click "Install" to install the Gateway service
+  8) Click "Run" to run the Gateway service
+  9) Close the Gateway exe
+
+1.7. How can I run the Gateway as an ISAPI extension ?
+
+If you want to use a Secure Key with your ISAPI extension, you should run the Gateway executable and enter the Secure Key, then start and stop the Gateway to have the ".inf" file created, then close the Gateway exe and rename the ".inf" file to the name of your ISAPI DLL (only keep the ".inf" extension).
+
+Then, you can upload the ISAPI DLL and the configuration (.inf) file to your WebServers and install the Gateway ISAPI as any other ISAPI extension. If you aren't using a Secure Key, you don't need the ".inf" file, only the Gateway ISAPI DLL.
+
+
+2. Portal Host
+
+The Host component works with a Control component to allow the user running the Control component to remotely control the computer running the Host component. Both components must be logged onto the same Gateway. The Host component can be set to provide the level of control that is desired, which ranges from viewing some portion of the remote screen through full control of the remote computer. The Host component can be set to provide the level of control that is desired (group chat, file upload/download, desktop view/control).
+
+In addition to working with RTC Control, the Host can be used for making remote presentations to one or more remote users which would only need to use the free RTC Viewer to have view access to the Host PC and the ability to chat with the Host using the integrated RTC Portal Chat.
+
+2.1. How do I make my PC remotely controllable?
+
+Start the RTC Host on the PC you want to remotely control, enter the Address, Port and Secure Key of the Gateway you want to use and enter the Username and Password you want to use with this Host PC.
+
+If you are behind a HTTP Proxy Server, also check the "Proxy" checkbox.
+If your Gateway is running as an ISAPI inside MS IIS, Apache, Abyss or some other third-party WebServer, you should also check the "ISAPI" box and enter the location of the ISAPI dll. If the Gateway is configured to work over SSL, also check the "SSL" checkbox.
+
+Then ... check the "Change Settings" checkbox and click "LOG IN", change any Host settings (like access rights) and click "START" (on the 2nd page), or ... simply click "START" on the login page without checking "Change Settings" and the Host will use the settings stored on the Gateway.
+
+Once the Host is logged in, it's main window will show a list (at first empty). If any RTC Control or Viewer connects to your Host, it will show up in the list.
+
+The performance you can get remotely highly depends on the things you do on the Host PC, as well as your Host's Settings. Higher compression and less colors means less bandwidth requirements, while lower compression means less CPU usage, but more bandwidth usage.
+
+What matters most for the Host is it's Graphics Card and it's connection to the Gateway. If you get high CPU usage on the Host, you should install and enable the video mirror driver.
+
+WARNING: All RTC Hosts logged in to the Gateway will be visible to all RTC Controls and Viewers logged in to the same Gateway, unless a Host restricts access to specific users by checking "Allow access only to users" and adds only names of users it wants to allow access.
+
+NOTE: Each user connected to the Gateway needs a unique username. If the same username is used to log in to the same gateway again and the password matches, the first user will automatically be logged out.
+
+2.2. Can I log onto a Gateway through more than one Host?
+
+Yes, but you must use a different Username for each Host. If the same user attempts to log onto any Gateway more than once, the first connection will be closed so that no user can ever have more than one connection to a Gateway. In other words, every application (RTC Host, Viewer or Control) connecting to one RTC Gateway will need a unique username.
+
+2.3. How can I specify who can use my Host?
+
+Read the FAQ marked with the UA prefix (section 2.6)
+
+2.4. What are the "SU", "UA", and "HST" prefixes in this FAQ?
+
+The Host uses three "pages". There is a Startup "page" visible each time the Host begins running, a Host page visible during the time that the Host is active, and a User Access page that can be accessed from the Startup page or the Host page. In this FAQ, each question will be preceded by one of these codes to indicate which page it applies to -
+
+  SU: Startup page (section 2.5)
+  UA: User Access page (section 2.6)
+  HST: Host page (section 2.7)
+
+
+2.5. Portal Host - Startup page
+
+2.5.1. SU: What is the Gateway "Address"?
+
+All communication between Nexus Portal components must go through a Gateway, which can be at any IP address and on any port. Enter the IP address or domain name of that Gateway in this edit box.
+
+2.5.2. SU: What is the Gateway "Port"?
+
+All communication between Nexus Portal components must go through a Gateway, which can be at any IP address and on any port. Enter the Port Number of that Gateway in this edit box.
+
+2.5.3. SU: What is the Gateway "Secure Key"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway, which may or may not use a Secure Key phrase that, in effect, converts it to a private network. Any Host component connected to such a Gateway must have that phrase in this edit box. Secure Key phrases are case-sensitive.
+
+2.5.4. SU: What is the Gateway "ISAPI"?
+
+All communication between RTC Portal components must go through a Gateway, which may or may not be running as an ISAPI extension on a server. 
+
+If the Gateway used by this Host component is running as an ISAPI extension, enter the path to that extension in this edit box. For example, if the extension is named MyStuff.dll and is located in a folder named MyISAPI, then "MyISAPI/MyStuff.dll" is what should be entered in this edit box.
+
+2.5.5. SU: What is the "Proxy" checkbox?
+
+If the IP of the Gateway must be contacted through a proxy on your network, then this box must be checked. The proxy settings used will be the same as those set up for Internet Explorer.
+
+2.5.6. SU: What is the "SSL" checkbox?
+
+Check this box only if the Gateway is running as an ISAPI under a SSL-enabled WebServer, or if someone has the Gateway source code and uses StreamSec Tools or Secure BlackBox to compile the Gateway exe for SSL support.
+
+2.5.7. SU: What is the "Username"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway which requires a Username before access can be granted. A password may also be required.
+
+Use this edit box to enter your Username.
+
+The first time you connect to a Gateway through the Host, your Username and Password are stored by the Gateway, and each time you log onto that Gateway, you must use the same Username and Password.
+
+2.5.8. SU: What is the "Password"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway which requires a Username before access can be granted. A password may also be required.
+
+Use this edit box to enter your password.
+
+The first time you connect to a Gateway through the Host, your Username and Password are stored by the Gateway, and each time you log onto that Gateway, you must use the same Username and Password.
+
+2.5.9. SU: What does "Save my Password" do?
+
+This checkbox determines whether or not the password used by the Host to log onto the Gateway is saved so that it will not have to be re-entered every time.
+
+2.5.10. SU: What does "Change Settings before Start" do?
+
+Checking this box causes the caption of the "Start" button to change to "Log In" to indicate that, when it is pressed, the user will be logged in, but the Host will not be started (yet). Instead, the User Access (UA) page is presented with several options that are used to define the users who will be allowed to access this Host. There are several FAQ about controlling user access. They are all prefixed with "UA".
+
+This checkbox always starts out as unchecked. It is simply a means of calling up the UA page without starting the Host. If the Host is started, the UA page can be accessed via the "Change Settings" button of the Host page.
+
+2.5.11. SU: How do I set up the users who may use my Host?
+
+The first time you run the Host, check the "Change Settings before Start" checkbox. The START button will change to LOGIN. Please read the "What does Change Settings before Start do?" for more info.
+
+2.5.12. SU: What does the "Start" button do?
+
+If the caption reads START, pressing this button will start the Host running and change to the Host "page". If it reads LOGIN, pressing this button will bring up the User Access page. The caption of this button changes according to whether or not the "Change Settings before Start" checkbox is checked.
+
+When the caption reads "LOG IN", clicking the button will cause the User Access page to appear. The UA page has a "START" button that can be used when the UA page is visible.
+
+If any problem is encountered, a message will be displayed in the status bar (dark gray area) at the bottom of the Startup page.
+
+2.5.13. SU: How can I run the Host as a Service?
+
+   1) Enter the URL of your Gateway.
+   2) Choose a Local Port. 
+   3) Enter a Secure Key if necessary. 
+   4) Check Proxy and SSL as appropriate. 
+   5) If your Gateway is running as ISAPI, check the "as ISAPI'" checkbox, and enter the ISAPI path.
+   6) Enter Host's Username and Password
+   7) Check the "Save Password" checkbox
+   8) Click "Start" to see if the Host will work with your settings.
+   9) If the Host works, click LOG OUT and continue with step (10).
+  10) Make sure the "Save password" checkbox is still checked
+  11) Click "Install" to install the Host service
+  12) Click "Run" to run the Host service
+  13) Close the Host app, your Host Service should now be ready for use
+
+2.5.14. SU: What does "Re-Login when 'kicked out'" do?
+
+Check this box to maximize the Host's efforts to keep you connected. This option is always ON if the Host is running as a Service. Without this option, the Host will try 10 times to re-connect if the connection to the Gateway is lost. If these attempts all fail, this option is used to determine what to do next. If it is checked ( or if the Host is running as a Service ), then the Host will try to login using the fields of the SU page.
+
+
+2.6. Portal Host - User Access page
+
+2.6.1. UA: What is the General tab of the User Access page?
+
+This tab maintains a User List which can specify which users are authorized to use the Host. Whether or not the list is used depends on the "Make Host Accessible only to..." checkbox. If the User List is NOT used, then any user can logon to the Host.
+
+Maintenance of the User List (adds and drops) is only possible when the User Access page is accessed from the Startup Page, before the Host is started.
+
+This tab also provides a number of options that determine what is accessible and what is not in the form of a number of checkboxes near the bottom of the page. All users are subject to the restrictions imposed by these checkboxes.
+
+2.6.2. UA: What is "Make the Host Accessible only to..."?
+
+If this checkbox on the "General" tab of the User Access page is checked, then the list of authorized users in the listbox below it are the only users who will be allowed to use the Host to control the hosted computer. If this checkbox is not checked, then any user can access the host.
+
+In any event, all users will be subject to the restrictions imposed by the checkboxes near the bottom of the page.
+
+2.6.3. UA: How do I add a user to the list of allowed users?
+
+Using the General tab, first, be sure that the "Make the Host Accessible only to..." checkbox is checked. Second, add each user one at a time by clicking on the "Add User" button on the right side of the UA page. When the Gateway establishes communication with the Host, the Gateway user will be validated against the list.
+
+2.6.4. UA: How do I drop a user from the list of allowed users?
+
+From the General tab, Users can be dropped from the list by clicking on the user's name in the list, and then clicking the "Remove User" button.
+
+2.6.5. UA: What are the checkboxes near the bottom of the General tab?
+
+These checkboxes determine the default access for authorized users of the Host. 
+
+Ideally, these checkboxes should allow minimum access to Users of the Host. The "Super Users" tab is then used to grant more access to some Users.
+
+2.6.6. UA: What is the Super User tab of the User Access page?
+
+This tab is used to maintain a SuperUser List, along with additional access rights SuperUsers have to the Host. Each SuperUser must also appear in the User List of the General tab, unless the Host is accessible to all. Each SuperUser will be granted all rights from the User List in addition to the rights granted on the SuperUser tab.
+
+2.6.7. UA: How do I add a user to the SuperUser list?
+
+Using the Super Users tab, add each SuperUser, one at a time, by clicking on the "Add User" button on the right side of the UA page.
+
+2.6.8. UA: How do I drop a user from the SuperUser list?
+
+From the Super Users tab, SuperUsers can be dropped from the list by clicking on the SuperUser's name in the list, and then clicking the "Remove User" button.
+
+2.6.9. UA: How do I increase the access of SuperUsers?
+
+From the Super Users tab, check some or all of those checkboxes that were not checked on the General tab.
+
+For example, the User List may allow "View my Desktop" so that any user may view the desktop of the Host machine. By checking "Control my Desktop" on the SuperUser's tab, a limited number of users may also have the right to control the desktop of the Host.
+
+2.6.10. UA: What is the START or CONTINUE button?
+
+The caption of this button reads START when the User Access page is accessed from the Startup page. It reads CONTINUE when accessed from the Host page. Whatever it reads, clicking on it will close the UA page and proceed to the Host page, provided that there is no error. If there is an error, a message will appear in the status bar at the bottom of the form.
+
+2.6.11. UA: What is the "Advanced" tab?
+
+The Advanced tab of the UA page allows the operator to modify settings that can greatly affect the performance of the Host. These settings affect how the Host's screen is sent to the Viewers and Controls using the Host.
+
+2.6.12. UA: Advanced - What is "Send complete frames"?
+
+When this is checked, the Host sends Frames all at once. Otherwise, each Frame is broken down into blocks, and each block is sent separately.
+
+2.6.13. UA: Advanced - What is "Use Video Mirror Driver"?
+
+Check this box if you have installed the video driver that can be downloaded from http://www.demoforge/DFMirage.htm
+
+Using this video driver may greatly improve the performance of the Host by reducing the amount of CPU that it consumes managing the screen.
+
+2.6.14. UA: Advanced - What is "Compression"?
+
+Video data sent by the Host to its Gateway over a slow connection should use Maximum compression to reduce bandwidth. Within LAN, compression should be Minimum because LAN usually has good bandwidth. Normal compression is the default and the best option between those two extremes.
+
+2.6.15. UA: Advanced - What is "Color Limit"?
+
+This setting determines how colors are mapped for transfer by the Host. Use the lowest mapping possible to reduce bandwidth and increase FPS.
+
+2.6.16. UA: Advanced - What is "Frame Rate"?
+
+This setting determines how often the Host sends updates to its Gateway. It is usually best to allow the Host to determine this automatically, but you can raise or lower it by using this setting if it is necessary.
+
+2.6.17. UA: Advanced - What is "Send Full Screen"?
+
+This setting determines whether the Host will send the entire screen, or just part of the screen. If it is checked, then the entire screen is sent. If it is *not* checked, a dialog will appear when the START button is pressed that will ask you to confirm  your choice. Press "Yes" to confirm that you want to send a portion of the screen, or "No" to indicate that you want to send the entire screen.
+
+After you confirm that you want the Host to manage just part of the screen, cross-hairs will appear. Use the mouse to move the cross-hairs to the top-left side of the region, hold down the mouse button, and drag the cross-hairs to the bottom-right of that region. When you release the mouse button, the Host will run, and show only the region of the screen that has been marked.
+
+This is especially useful when several Viewers are logged onto the Host at the same time. If prevents those Viewers from seeing irrelevant parts of the Host screen.
+
+
+2.7. Poral Host - Host page
+
+2.7.1. HST: What is "RTC Priority"?
+
+The selected item of this listbox determines the priority of the Host's process.
+
+2.7.2. HST: What is "Change Settings"?
+
+Click on this button to invoke the UA page from the HST page. When the UA page is invoked by this button, it cannot be used to edit the User List, though all other settings can be modified. This is especially useful for tweaking Advanced settings while the Host is active.
+
+2.7.3. HST: What is "Users connected to this Host"?
+
+This listbox is updated automatically by the Host to display a list of its users by name. When a user logs on, that username is added to this list. When a user logs off, the username is removed from this list.
+
+
+3. Portal Viewer/Control
+
+3.1. How do I View and/or Control a remote PC?
+
+To View or Control one or more Hosts connected to a Gateway, start the RTC Viewer or RTC Control and LOG IN to the Gateway by using a unique username (one username per user) and password.
+
+Once you log in, if there are Hosts connected and available to you, you will see them in the list. If a new Host logs in or out, your list will automatically be updated (new users added and old users removed).
+
+To view or control the Desktop of any Host in your list, you can select it and click "View Desktop", or double-click it. If the Host allows Control (it hasn't unchecked "Can control my Screen" in his Settings), you can control it's mouse and keyboard from the "Desktop Control" window.
+
+When using the RTC Control with a Host which allows you to control it, you will also notice that clipboard is automatically being synchronized between your Control and Host. Anything you place on the clipboard will automatically be sent from your PC to the Host PC and vice-versa.
+
+To send files from Control to Host, you can drag them from Windows File Explorer into the Desktop Control window showing the Host PC, or open the File Transfer window by clicking "File Transfer" and drag them there.
+
+One or more Controls and Viewers can participate in a Chat with the Host. To open the Chat window, select the Host and click the "Chat" button. If other Viewers and/or Controls are currently in chat with that Host, you will see their messages and they will see yours. This is "group chat". Host can terminate the Chat by closing the Chat window or logging out.
+
+3.2. What does the Viewer do?
+
+The Viewer component works with the Gateway and Host components to allow the user running the Viewer to view the desktop of the computer running the Host. The Viewer and the Host must both be logged onto the same Gateway. Subject to the restrictions imposed by the Gateway to which it is logged on, the Viewer component provides access to Desktop View and the Chat window, but never to the File upload/download functions.
+
+3.3. What does the Control do?
+
+The Control component works with the Gateway and Host components to allow the user running the Control to control the desktop of the computer running the Host. The Control and the Host must both be logged onto the same Gateway. Subject to the restrictions imposed by the Gateway to which it is logged on, the Control component provides access to Desktop Control, the Chat window, and to File upload/download functions.
+
+3.4. What does the Chat window do?
+
+The Chat window can be invoked from any Viewer/Control component to allow the operator of the Viewer/Control to chat with the operator of the Host. There is no need to have the Desktop visible to run a chat window.
+
+3.5. What are the "SU", "VC", and "CHAT" prefixes in this FAQ?
+
+The Viewer/Control component uses three pages. There is a Startup page visible each time the Viewer/Control begins running, a Viewer/Control page visible during the time the Viewer/Control is active, and a Chat window that is accessible if the Host allows it. In this FAQ, each question will be preceded by one of these codes to indicate which page it applies to:
+
+  SU: Startup page (section 3.6)
+  VC: Viewer/Control page (section 3.7)
+  CHAT: Chat window (section 3.8)
+
+
+3.6. Portal Viewer/Control - Startup page
+
+3.6.1. SU: What is the Gateway "Address"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway, which can be at any IP address and on any port.
+
+Enter the IP address of that Gateway in this edit box.
+
+3.6.2. SU: What is the Gateway "Port"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway, which can be at any IP address and on any port.
+
+Enter the Port Number of that Gateway in this edit box.
+
+3.6.3. SU: What is the Gateway "SSL"?
+
+Check this box only if the Gateway is running as SSL-enabled. This can either be with a Gateway ISAPI running on a third-party WebServer with SSL support, or with a Gateway exe compiled with StreamSec Tools or SecureBlackBox components for SSL support.
+
+3.6.4. SU: What is the Gateway "Proxy"?
+
+If the IP of the Gateway must be contacted through a proxy on your network, then this box must be checked. The proxy settings used will be the same as those set up for Internet Explorer.
+
+3.6.5. SU: What is the Gateway "Secure Key"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway, which may or may not use a Secure Key phrase that, in effect, converts it to a private network. Any Viewer component connected to such a Gateway must have that phrase in this edit box.
+
+Secure Key phrases are case-sensitive
+
+3.6.6. SU: What is the Gateway "ISAPI"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway, which may or may not be running as an ISAPI extension on a server.
+
+If the Gateway used by this Viewer component is running as an ISAPI extension, enter the path to that extension in this edit box. For example, if the extension is named MyStuff.dll and is located in a folder named MyISAPI, then "MyISAPI/MyStuff.dll" is what should be entered in this edit box.
+
+3.6.7. SU: What is the "Username"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway which requires a Username before access can be granted. A password may also be required.
+
+Use this edit box to enter your Username.
+
+The first time you connect to a Gateway through any RTC Portal 2.0 component, your Username and Password are stored by the Gateway, and each time you log onto that Gateway, you must use the same Password with that Username. Since each logged in user needs a unique username, you will need a separate username for each Host, Control and Viewer connected to the same Gateway.
+
+3.6.8. SU: What is the "Password"?
+
+All communication between RTC Portal 2.0 components must go through a Gateway which requires a Username before access can be granted. A password may also be required.
+
+Use this edit box to enter your password.
+
+The first time you connect to a Gateway through any RTC Portal 2.0 component, your Username and Password are stored by the Gateway, and each time you log onto that Gateway, you must use the same Password with that Username. 
+
+PS. Since each logged in user needs a unique username, you will need a separate username for each Host, Control and Viewer connected to the same Gateway.
+
+3.6.9. SU: What is "Save my Password"?
+
+Each time you successfully log on to a Gateway from any other RTC 2.0 component, the properties you have entered into the startup dialog of the component are saved automatically, except for the Password.
+
+Check this box if you would prefer that the Password also be saved.
+
+3.6.10. SU: What is "Re-login when 'Kicked out'"?
+
+Check this box to maximize the Viewer/Control component's efforts to keep you connected. Without this option, the component will try 10 times to re-connect if the connection to the Gateway is lost. If these attempts all fail, this option is used to determine what to do next. If it is checked, then the component will try to login using the fields of the SU page.
+
+To successfully use this option, it is necessary to check the "Save my Password" checkbox.
+
+3.6.11. SU: What does the "LOG IN" button do?
+
+Once the fields of the Startup page have been filled in properly, pressing the LOG IN button will start the Viewer/Control component by presenting the Viewer/Control page. If there is a problem, an error message will be displayed in the status bar at the bottom of the SU page.
+
+Once the fields of the SU page have been filled in, the LOG IN button can be used next time the program runs without any changes to the SU page, provided that the "Save my Password" checkbox has been checked.
+
+
+3.7. Portal Viewer/Control - Viwer/Control page
+
+3.7.1. VC: What does the "RTC Priority" list do?
+
+Changing this field will change the execution priority of the process of the Viewer/Control component.
+
+3.7.2. VC: What are "Available Hosts"?
+
+This list is provided by the Gateway to which the Viewer/Control has logged on. It is a list of Hosts that are available through that Gateway, although each Host decides for itself which users may use it.
+
+3.7.3. VC: What does the "Map Keys" checkbox do?
+
+This checkbox only affects the Control component. Viewers never have access to the keyboard of the Host.
+
+When a Control component has control of the Host keyboard, leaving "Map Keys" checked causes the Control to send characters to the Host so that the Host can provide any mapping necessary to adjust for differences between the Control keyboard and the Host keyboard.
+
+Unchecking "Map Keys" causes the Control to send the KeyUp/KeyDown messages from the Control keyboard to be applied directly by the Host. Some programs, VMWare for example, require this.
+
+3.7.4. VC: What does the "Smooth View" checkbox do?
+
+When the Host display has a bigger resolution than the display of the Viewer/Control, checking this checkbox will provide a better image of the Host display at the cost of some CPU usage on the Control side. Unchecking this box is one thing you can do to try to get more FPS, since smoothing the image consumes the Control CPU.
+
+3.7.5. VC: What does the "Exact Cursor" checkbox do?
+
+This checkbox only affects the Control component. This checkbox determines what the Viewer/Control does when the Host sends it a non-standard cursor. If it is checked, then the cursor is displayed as it it appears on the Host. Otherwise, any non-standard cursor is displayed as the default arrow cursor.
+
+3.7.6. VC: What do "Host Control options" do?
+
+RTC Control has 4 different modes for remote desktop control: View, Support, Teach and Admin. 
+
+If you are using RTC Portal to offer support to your customers while they are sitting in front of the Host PC, the best option is to use "Support" mode, because the user can then take over at any time simply by moving the mouse and you (Control) won't automatically take mouse control back by moving your mouse. You need to click somewhere to take control of the mouse in "Support" mode. 
+
+In "Teach" mode, you (Control) will start controlling the remote mouse when you click somewhere inside the Desktop View area, but the Host user can still take over mouse control simply by moving its mouse. To regain control in "Teach" mode, after the initial click, it is enough for the Control to move its mouse (no need to click again). This makes it different from "Support" mode, where you (Control) have to click somewhere to regain control of the mouse from the Host if it was moved. 
+
+The "Admin" mode should be used only when you (Control) need to handle administrative tasks alone on the Host PC and you do NOT want the Host to take control of the mouse from you. In "Admin" mode, you (Control) have priority over mouse control.
+
+The "View" mode is the exact opposite of the "Admin" mode. In "View" mode, you (Control) do not have control of the mouse on the Host PC. Even if you should click somewhere in the Desktop View window, it won't make a difference in "View" mode, because all your mouse actions will then be ignored. 
+
+If you are sitting alone at the Host PC, you can use the Admin option. If the Host is showing you something and you want to make sure you don't click somewhere accidentally, you will use the View mode. And if you are offering Support or teaching the user something, but you want the user to be able to take control of the mouse, you will use the Support or Teach mode.
+
+3.7.7. VC: What does the "Desktop" button do?
+
+Click the "Desktop" button to create a window that will display the Host screen. The Viewer component can view this window, but does not affect the Host. With the Control component, this window can be used to control every aspect of the Host machine.
+
+3.7.8. VC: What does the "Chat" button do?
+
+Providing that it is allowed by the Host, clicking the "Chat" button will bring up a chat window that will allow the Viewer/Control user to chat with the Host user.
+
+3.7.9. VC: What does the "File Transfer" button do?
+
+This feature is only implemented by the Control component. Providing that it is allowed by the Host, clicking the "File Transfer" button will bring up a window on the Control screen that will transfer files from the Control to the Host. Files are transferred by dragging them from the Explorer and dropping them onto the window. Multiple files may be dragged and dropped on the Transfer window. Files sent to the Host are stored on the Host machine in a folder named INBOX that is located in a folder immediately below the home folder of the Host program.
+
+Similarly, provided thats allowed by the Host, the Control may drag files on the Host to the Host window and drop them there to transfer files from the Host machine to the Control machine. Files sent to the Control are stored on the Control machine in a folder named INBOX that is located in a folder immediately below the home folder for the Control program.
+
+
+3.8. Portal Viewer/Control/Host - Chat window
+
+3.8.1. CHAT: What is the History (top) panel of the Chat window?
+
+This History panel shows the entire conversation that has occurred during the time the Viewer/Control has been chatting since the last time it was cleared. Closing the Chat window will lose this history. History can be cleared by clicking the "Clear History" hotspot in the center portion of the Chat dialog. History can be hidden by clicking on the "Hide History" hotspot. Hidden history can be restored to view by clicking on the "Show History" hotspot.
+
+Text is added to History each time a Viewer/Control indicates an end-of-line by pressing the <Enter> key.
+
+3.8.2. CHAT: How can I save the text of a chat?
+
+First, ask everyone else in the chat to stop typing while you copy the text of the History panel by selecting it and then pressing <Ctrl-C>. If other people type while you do this, focus may shift to the bottom panel and prevent you from successfully copying the text in the top panel. Once you have the text copied, you can paste it into any application that will accept it.
+
+3.8.3. CHAT: What is the Messages (bottom) panel of the Chat window?
+
+This panel shows a 3-line message box for each user currently in the Chat. The message box for each user is identified by the Username on the first line, and shows the last message entered by that user. Users are added to this list when they join the chat and removed when they leave the chat.
+
+The Username of the Viewer/Control appears in the topmost line of the message box. The position of other users depends on whether the "Lock Chat Boxes" hotspot is showing.
+
+3.8.4. CHAT: What is the "To Top" or "Normal" hotspot?
+
+When this hotspot reads "To Top", clicking on it will change the text to read "Normal", and set the Chat dialog to stay on top of all other windows. When this hot spot reads "Normal", clicking on it will change the text to read "To Top" and set the Chat dialog to assume its normal position in the Z-order of the desktop.
+
+3.8.5. CHAT: What is the "Desktop" hotspot?
+
+Clicking this hotspot will activate the window used by the Control to display the Host screen. If there is no such window, then one will be created, provided that the Host allows its screen to be viewed.
+
+3.8.6. CHAT: What is the "Hide History" hotspot?
+
+Clicking this hotspot will hide the History panel of the Chat window, and change the text of the hotspot to read "Show History".
+
+3.8.9. CHAT: What is the "Show History" hotspot?
+
+Clicking this hotspot will bring the History panel of the Chat window back into view, and change the text of the hotspot to read "Hide History".
+
+3.8.10. CHAT: What is the "Hide my Typing" hotspot?
+
+When this hotspot is visible, the chat window is sending each keystroke to the Host as it is pressed. Any typos and corrections are sent as they occur. When you click this hotspot, its text changes to "Show my Typing", and the keystrokes are no longer sent to the Host as the occur. Instead, when you type something, the Host will display the message "typing" and wait for you to press the <Enter> key before it shows what you have typed.
+
+3.8.11. CHAT: What is the "Show my Typing" hotspot?
+
+When this hotspot is visible, the chat window is sending each message you type to the Host only when you press the <Enter> key. When you click this hotspot, its message changes to "Hide my Typing" and the each keystroke is sent to the Host as it occurs.
+
+3.8.12. CHAT: What is the "Lock Chat Boxes" or "Unlock Boxes" hotspot?
+
+When a Viewer/Control first joins a chat, it will see a chat window with its message box at the top of the Messages Panel, and the message box of the Host immediately below it. Call the position of the Host message box the "Primary Position." If another user in the chat sends a message, the message box of that user will appear in the Primary Position, while the message box previously in the Primary Position is moved down.
+
+Click the "Lock Chat Boxes" hotspot to prevent the movement of message boxes each time a user sends a message. The text of the hotspot will change to read "Unlock Boxes", and message boxes will no longer change their order.
+

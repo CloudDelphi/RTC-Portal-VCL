@@ -1,0 +1,51 @@
+The aw_sas32.dll is distributed/provided according to the 
+license in the originating package, which is attached below.
+
+DOWNLOAD OF THE FULL PACKAGE AT:
+http://ns1.netatelier.com/Awsaslib/default.aspx
+
+-------------------------------------------------------------------------------
+*** AW_SASxx DLLs and other materials included in the Free Distribution Package***
+
+END USER LICENSE AGREEMENT TERMS AND CONDITIONS
+
+Please read the terms and conditions of this license agreement (the "License")
+before installing the computer software (the "Software").  By installing and
+using the Software you accept and agree to the terms of this License.  This
+License constitutes the entire agreement concerning the Software between you and
+Jose Pascoa. If you do not agree with these terms and conditions, promptly
+uninstall or remove the Software.
+
+The term "Software" includes, and these terms and conditions also apply to, any
+updates, modifications and upgrades to the Software that you may receive after
+the initial release.
+
+1. License Grant. This License permits you to use the supplied aw_sasxx DLLs in
+any software you develop and distribute, sell or give away according to your own
+criteria, except,
+Use of the Software with with any product that is distributed as
+Open Source or is distributed under the terms of GNU General Public License
+(GPL) or where the Source Code of the application is required to be freely
+distributed is NOT ALLOWED.
+You agree that you will not modify, adapt, rename or translate, or disassemble,
+decompile, reverse engineer or otherwise attempt to discover the source code of
+any parts of the Software supplied in EXE or DLL form.
+
+2. Jose Pascoa DISCLAIMS ANY AND ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR PARTICULAR PURPOSE.
+Jose Pascoa does not warrant that the Software, its use, operation or your
+ability to use the Software will be uninterrupted or error-free or that all
+Software errors will be corrected. Jose Pascoa does not warrant that the
+Software or service will meet your requirements.
+
+3. Limitations of Liability.  In no event shall Jose Pascoa be liable for any
+damages to you or any other party whether arising out of contract or from tort
+including loss of data, profits or business or other special, incidental,
+exemplary or consequential damages, even if Jose Pascoa has been advised of the
+possibility of such loss or damages.  Jose Pascoa’s cumulative liability shall
+not exceed the license fee paid, which is none in this case, for use of this
+Software and Documentation.
+
+Jose Pascoa is a registered Software Developer, with address in Lisbon, Portugal
+
+

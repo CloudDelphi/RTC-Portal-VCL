@@ -1,0 +1,1842 @@
+Version date: May 21st 2017.
+
+--------------------------------
+* RTC PORTAL v5.05
+--------------------------------
+
+1. Updated "Show_Wallpaper" function in the "rtcScrUtils.pas" unit (faster?).
+
+2. Added a call to "Show_Wallpaper" before closing the RTC Portal Host.
+
+--------------------------------
+* RTC PORTAL v5.04 (2017.Q2)
+--------------------------------
+
+********************************************************************************
+* This RTC Portal version requires RealThinClient SDK v8.04 (2017.Q2) or later *
+********************************************************************************
+
+1) Updated RTC Portal VCL components and Demos to compile and work correctly 
+   with RealThinClient SDK v8.04 (2017.Q2), see RTC SDK update logs for details.
+
+2) Updated "RTCHost" and "RTCControl" Demos to un-check the "Auto Re-Login" checkbox
+   (to disable automatic re-login attempts) when the user clicks the "LOG OUT" button.
+   
+--------------------------------
+* RTC PORTAL v4.12
+--------------------------------
+
+1) Fixed a problem of Portal Clients getting disconnected and logged out by
+   the Gateway when trying to send data after a longer period of inactivity.
+   
+--------------------------------
+* RTC PORTAL v4.11 (2017.Q1)
+--------------------------------
+
+1) RTC Host and Control Projects updated to disable "Auto-Relogin" from OnCloseQuery 
+   event to avoid Exceptions during Shut-down caused by Auto-Relogin still being active.
+
+2) "GateIPV" property added to "TRtcHttpPortalClient" component (IPv6 support).
+
+--------------------------------
+* RTC PORTAL v4.10 (2016.Q2)
+--------------------------------
+
+1) Fixed problems with uploaded/downloaded Files being corrupted after transfer.
+
+2) Fixed problems with the "NUMLOCK" changing state on the Host and the 
+   Arrow Keys not working correctly in some Applications (especially Console).
+
+--------------------------------
+* RTC PORTAL v4.09 (2013.Q2)
+--------------------------------
+
+1) The List of Hosts in RTC Portal Control is now more flexible and displays all Hosts vertically.
+
+2) When using "View only" mode on Portal Control, double-clicking the Desktop View window will 
+   remove the Window frame. To reposition the Window, simply click and drag anywhere inside the 
+   Window. To get the Window frame back, double-click anywhere inside the Desktop View Window.
+
+--------------------------------
+* RTC PORTAL v4.08 (2013.Q1)
+--------------------------------
+
+1) Fixed a bug which was causing an AV when using Cancel_Send or Cancel_Fetch methods.
+
+2) Added "X" buttons to the FileTransfer Form, using Cancel_Send and Cancel_Fetch to allow 
+   the user to cancel sending and/or receiving of the file being currently tranferred.
+
+3) Folder Transfer functionality extended to include empty folders with their creation dates.
+
+4) Annoying MessageBeep calls have been replaced in the default Chat Window implementation. Now, 
+   a single MesageBeep will be called ONLY if the Chat Window is minimized when a message arrives.
+
+--------------------------------
+* RTC PORTAL v4.07
+--------------------------------
+
+1) RTC Portal Gateway Project extended with options to:
+   - Disable automatic user registration
+   - Save Gateway Setup (without starting the Gateway listener)
+   - Restart the Gateway Service
+
+2) RTC Host Project exended with options to:
+   - Save Host Setup (without logging in)
+   - Restart the Host Service
+
+3) Updated the TRtcPortalCli.LoginUserInfo property assignment code to clear
+   any previous values that might have been assigned before assigning a new value.
+   Assigning a new LoginUserInfo record won't result in an exception anymore.
+
+   This also resolves the problem of a Host Service not reconnecting to the Gateway
+   after losing its connection (caused by a Network issues or a Gateway restart).
+
+4) RTC Host Service Project running on pre-Vista Windows Systems updated
+   to make a clean logout (PClient.Stop) and wait 5 Seconds before making 
+   a new login attempt after a connection to the Gateway was lost.
+
+   This reduces the problem of a Host Service filling up its LOG files
+   with repeated reconnect attempts and flooding the Network when the 
+   Gateway remains unavailable for an extended period of time.
+
+--------------------------------
+* RTC PORTAL v4.06
+--------------------------------
+
+1) Added the abbility to send Ctrl+Alt+Del to a Host running on Windows Vista, 7, 8 and 2008.
+
+  For the ability to send Ctrl+Alt+Del from RTC Control to RTC Host running on Windows Vista and later, 
+  the "aw_sas32.dll" (found in the "Help" folder) has to be inside the same folder as the RTC Host executable,
+  and ... (A) the RTC Host Application has to be installed and running as a Windows Service, 
+  or ... (B) the RTC Host Application has to be started with the "-VISTA" parameter.
+
+  In both cases, the RTC Host executable will require Administrator rights ("Run as Administrator").
+
+  If you want to have the RTC Host running as a Service, use the "install" and "run" buttons 
+  available in the RTC Host login screen. After installing and starting the RTC Host Service, 
+  close the RTC Host Application for the RTC Host Service to take over (it takes a few seconds).
+
+  When running the RTC Host with the "-VISTA" parameter, a temporary RTC Host Service will be 
+  installed and started. The Host Service will then start a Host instance in Application mode
+  to give you the standard Host Application interface with privileges available only to Services.
+
+  For more information on the "aw_sas32.dll", read the "aw_sas32_license.txt" file and visit:
+  http://softltd.wordpress.com/simulate-ctrl-alt-del-in-windows-vista-7-and-server-2008/
+
+--------------------------------
+* RTC PORTAL v4.05
+--------------------------------
+
+1) "TRtcPUserAccessReason" type added and the "UserAccess" method of the "TRtcPortalUserAccess" 
+   class extended to include the reason why user information is being accessed. This information
+   can be used by components extending the "TRtcPortalUserAccess" class to monitor User actions.
+
+   Here are all the Possible values for TRtcPUserAccessReason in this RTC Portal version:
+    - rtcpUA_HostConnect
+    - rtcpUA_HostDisconnect
+    - rtcpUA_ControlConnect
+    - rtcpUA_ControlDisconnect
+    - rtcpUA_SubscribeFrom
+    - rtcpUA_SubscribeTo
+    - rtcpUA_UnSubscribeFrom
+    - rtcpUA_UnSubscribeTo
+    - rtcpUA_EndSubscriptions
+    - rtcpUA_UnSubscribe
+    - rtcpUA_GetParams
+    - rtcpUA_SetParams
+    - rtcpUA_AddParams
+    - rtcpUA_DelParams 
+
+--------------------------------
+* RTC PORTAL v4.04
+--------------------------------
+
+1) "OnConnectionEvent" on the "TRtcPCustomCommand" component split 
+   into two new events: "OnUserJoined" and "OnUserLeft"
+
+2) New "UserLoginInfo" and "RemoteUserInfo" properties added to Portal Clients,
+   providing an easy way for sending and receiving custom information about users.
+   There is no limit to what you can send, because it is a TRtcRecord structure.
+
+3) "Module:TRtcClientModule" property made public on "TRtcAbsPortalCli" class.
+
+4) "TRtcPortalGateway" component implemented to replace the "rdServer" DataModule.
+
+   This new component is very flexible and highly customizable. It extends the 
+   "TRtcServerModule" with events from the "FunctionGroup" and all the functionality 
+   required by the RTC Portal Gateway, but it does NOT require any manual coding 
+   to be used (for default behavior, all event implementations can remain empty).
+ 
+   Events like "BeforeExecute", "AfterExecute", "BeforeUserRegister" and "BeforeUserLogin"
+   are provided for easy customization of the standard behavior, but vustom functions 
+   can also be added (assign a group of functions to the TRtcPortalGateway through 
+   its "HelperGroup:TRtcFunctionGroup" property). For even more customization on
+   the user access level, with the option to implement your own storage methods 
+   (for example, if you want to use a database for maintaining user data), you can 
+   extend the "TRtcPortalUserAccess" or "TRtcPortalGateUserAccess" component and
+   assign an instance of that component to the Gateway's "UserAccess" property.
+
+5) RTC Gateway Demos updated to use the new TRtcGatewayPortal component.
+
+6) RTC Host and Control Demos updated to show how to use the new 
+   "UserLoginInfo" and "RemoteLoginInfo" properties added to Portal Clients.
+
+--------------------------------
+* RTC PORTAL v4.03
+--------------------------------
+
+1) "TRtcPCustomCommand" component improved and extended with several new methods and 
+   properties, making it more flxible and usable for adding custom user communication.
+
+--------------------------------
+* RTC PORTAL v4.02
+--------------------------------
+
+1) dfmVideoDriver and rtcScrUtils units have been updated to include changes 
+   from the "Nexus Portal v3.72" release, fixing a minor bug in the dfmVideoDriver, 
+   improving Hide/Show Wallpaper and adding Restore/Toggle Aero global functions.
+
+--------------------------------
+* RTC PORTAL v4.01
+--------------------------------
+
+1) rtcWinLogon unit updated to include changes from the "Nexus Portal v3.72" release,
+   resolving problems with a Host running as a Service on Windows Vista and later.
+
+--------------------------------
+* RTC PORTAL v4.00
+--------------------------------
+
+1) All components and Demos updated to work with the RTC SDK v6.04
+
+--------------------------------
+* RTC PORTAL VCL 3.59
+--------------------------------
+
+1) All projects were recompiled with RTC SDK 3.29 to fix 
+   possible problems in communication when using WinInet or WinHTTP.
+
+2) A minor update to the auto-reconnect feature in the Host Service project.
+
+--------------------------------
+* RTC PORTAL VCL 3.58
+--------------------------------
+
+1) All projects were recompiled with RTC SDK 3.28 to fix 
+   automatic reconnect problems when using WinInet or WinHTTP.
+
+   No changes in the RTC Portal VCL.
+
+--------------------------------
+* RTC PORTAL VCL 3.57
+--------------------------------
+
+1) Removed RTC Control Trial project and updated the standard RTC Host+Control 
+   projects to display a "Free EXE Version" text on the main login page.
+
+   There will be no more splash screens on free RTC Control executables.
+
+2) Added a new "BackgroundColor" property to the TRtcPDesktopControlUI component,
+   which can be used to specify the color for painting the area around the visible 
+   Host Screen region (default = clBlack).
+
+3) License Agreement updated. For more information, please read the "license.txt" file.
+
+--------------------------------
+* RTC PORTAL VCL 3.56
+--------------------------------
+
+1) Fixed broken <Ctrl-Alt-Del> functionality on a Host running as a normal process.
+   Sending <Ctrl-Alt-Del> to a Host running as a normal process will now open the 
+   Task Manager again, as it was the case with earlier RTC Host versions.
+
+--------------------------------
+* RTC PORTAL VCL 3.55
+--------------------------------
+
+1) One more update for better compatibility with MS RDP (Terminal Services Client).
+
+--------------------------------
+* RTC PORTAL VCL 3.54
+--------------------------------
+
+1) Fixed a minor bug in the File/Folder rename event, where the Command edit field was 
+   changed to include full path where it should only contain the new file name (no path).
+
+--------------------------------
+* RTC PORTAL VCL 3.53
+--------------------------------
+
+1) Added an image to the "file drop" area at the bottom of the remote File Explorer
+   window to make it more apparent that this area has a special function 
+   (as a drop area for files and folders being downloaded or uploaded).
+
+   The image can also be clicked to download files and folders selected above.
+
+--------------------------------
+* RTC PORTAL VCL 3.52
+--------------------------------
+
+1) Added "Recv_TotalTime" and "Send_TotalTime" properties to the TRtcPFileTransUI 
+   component and used it to display "Completed in hh:mm:ss" in the File Transfer dialog, 
+   showing total time used to send/receive the last batch of files and folders.
+
+--------------------------------
+* RTC PORTAL VCL 3.51
+--------------------------------
+
+1) Fixed a bug with mismatched File Transfer events on the RtcHostSvc DataModule.
+
+--------------------------------
+* RTC PORTAL VCL 3.50
+--------------------------------
+
+1) Remote File Explorer is now implemented and integrated into the Host and Control projects.
+
+   Provided the RTC Host has given the Control user sufficient access rights, RTC Control
+   can now use a Remote File Explorer to browse through all Hosts drives, folders and files.
+
+   In addition to browsing through drives, folders and files (view),
+   provided the Host has enabled these options in its Host settings dialog,
+   Remote File Explorer can also be used to perform a number of operations on the Host:
+
+   - Create New Folders:
+       Right-click and select "Create New Folder" in the pop-up menu.
+
+   - Rename Files and/or Folders:
+       Click the file/folder two times (like in Windows Explorer) to enter "Edit mode",
+       change the name to what you want and confirm your changes by pressing the <Enter> key.
+
+   - Move Files and/or Folders:
+       Drag & drop within the Remote File Explorer (multi-select enabled)
+
+   - Delete Files and/or Folders:
+       Select file(s) and folder(s) you want to Delete,
+       then right-click to open the pop-up menu and choose "Delete".
+       A confirmation dialog will open with the list of files to be deleted.
+      
+   - Download Files and/or Folders:
+       A) Select file(s) and folder(s) you want to Download,
+          then right-click to open the pop-up menu and choose "Download".
+       B) Double-click a file you want to Download and click YES in the confirmation dialog.
+       C) Select file(s) and folder(s) you want to Download
+          and Drag them to the bottom of the File Explorer Window (file drop area).
+     Files are always being downloaded to your INBOX folder,
+     which will open automatically in Windows Explorer when download completes,
+     so you can open them or move them wherever you want to have them.
+       
+   - Upload Files and/or Folders:
+     Drag Files and Folders from the Windows Explorer to the Remote File Explorer
+     to upload them to the folder currently being viewed in the Remote File Explorer.
+     If the option "Upload Anywhere" is not enabled for the Control user,
+     Host will store the files in its INBOX folder. If "Upload Anywhere" is allowed,
+     file(s) and folder(s) will be written directly at their destination location.
+
+   - Open a File or a Folder on Hosts Desktop or start an EXE/COM remotely:
+     When you select a File or Folder, its name will be copied to the "Command"
+     Edit field below the Remote File Explorer view. Clicking "Execute"
+     (right from the edit field) will remotely "open" the file or folder.
+     You can also enter the name of the file or folder directly.
+     A separate Edit field is also available, where you can enter parameter
+    (for example, if you are executing an application which needs parameters)
+
+   A new Host user will start with file download, upload and browse options enabled,
+   but will be storing all file uploads to the INBOX folder. To be able to upload
+   files to ANY folder on the Host, the Host has to allow it in its Host Settings dialog.
+   The same goes for all the other direct access options (file/folder create, move, rename and delete).
+   This allows the Host user to keep full control of actions allowed to the Control "visitor".
+
+2) A new "Call" method has been added to the TRtcPFileTrans and TRtcPFileTransUI components, along
+   with the "OnCallReceived" event, which can be used for making custom remote calls to other clients.
+
+   All commands sent using the new "Call" method will be received on the other side in the
+   new "OnCallReceived" event of the TRtcPFileTrans and TRtcPFileTransUI component, regardless
+   of users access rights settings. This makes it very useful for extending file transfer
+   functionality without writing new components or classes.
+
+   So, you can now Simply create a new TRtcFunctionInfo object, fill it up with data you want
+   to send, use the "Call" method to send the object over and the user set as recipient will
+   receive the object in its "OnCallReceived" event.
+
+3) TRtcPCustomCommand component has now been added, allowing you to easily send String
+   messages between clients. It also implements the subscribe/unsubscribe mechanism,
+   so users can keep track of other users being "actively connected". Subscribing is
+   not necessary to send messages, though. It is only an addition which may be useful
+   for some purposes, but does not necessarily have to be used.
+
+4) "EliminateListViewBeep" function added to Host and Control projects. This function
+   will modify users registry to eliminate the annoying "Ding" sound on Windows VISTA,
+   which was being played every time the user did something with a TListView component.
+   If you want to keep the "Ding" sound, comment-out "EliminateListViewBeep" in "FormCreate".
+
+--------------------------------
+* RTC PORTAL VCL 3.49
+--------------------------------
+
+1) One more addition for better compatibility with MS RDP (Terminal Services Client).
+   [ See v3.48 description for more info ]
+
+--------------------------------
+* RTC PORTAL VCL 3.48
+--------------------------------
+
+1) Thanks to Richard Berends, a blank (white or black) screen problem apearing after the 
+   use of MS RDP (Microsoft Terminal Client) on a PC runnin RTC Host has now been resolved.
+
+   User sitting in front of the Host PC now only needs to log in to make RTC Host fully 
+   functional again after a MS RDP Session was closed (Terminal Client user logged out).
+
+--------------------------------
+* RTC PORTAL VCL 3.47
+--------------------------------
+
+1) "Gate_CryptPlugin" property on the TRtcHttpPortalClient component was 
+    removed by mistake in the last update. Now, the property is there again.
+
+--------------------------------
+* RTC PORTAL VCL 3.46
+--------------------------------
+
+1) Added a new RTC_FORCE_CLEAR_WHITE compiler directive in the "rtcCompress.pas" unit,
+   which can be declared to use a color reduction function which tries to force the 
+   white color to remain white after color reduction, but does not work reliably on all 
+   PC configurations (it could cause screen updates to be messed up on some low-end PCs).
+
+2) RTC_FORCE_CLEAR_WHITE compiler directive is NOT defined by default, which means that
+   standard implementation will work on all configurations and that white color will
+   also be reduced to gray (as all other colors) when using color depth reduction.
+
+--------------------------------
+* RTC PORTAL VCL 3.45
+--------------------------------
+
+1) TRtcPChat component updated to allow the Send() method to be used for sending 
+   messages to any user, even if the user is not participating in a group chat session.
+
+   While the old implementation has tried to automatically initiate a new Chat session
+   if the user the message is being sent to was not in a Chat session with us, the new
+   Send() implementation will simply send the message without trying to open a chat session.
+
+   This does not change the way the existing implementations work, where a user first calls 
+   "Open" to initialize a chat session and then uses the "Send" method to send messages, but 
+   it allows messages to be sent directly to users without having to open or close chat sessions.
+
+2) Added a new "Fetch" method to the TRtcPFileTransfer and TRtcPFileTransferUI components.
+
+   You can use the "Fetch" method to fetch (download) Files or Folders from users connected to the Gateway,
+   the same way you can use the "Send" method to send (upload) Files or Folders to users connected to the Gateway.
+
+   Same as the "Send" method, the "Fetch" method will take user access rights in account and will not 
+   allow downloading files or folders if the user asking for these files does not have download rights. 
+
+3) Fixed a problem in the color depth reduction function which was causing problems on some PCs.
+   
+--------------------------------
+* RTC PORTAL VCL 3.44
+--------------------------------
+
+1) Added "Gate_CryptPlugin" property to TRtcHttpPortalClient component.
+
+   This property allows you to use third-party components for SSL/SSH encryption
+   (for example, SecureBlackBox from Eldos or StreamSec Tools from StreamSec).
+
+--------------------------------
+* RTC PORTAL VCL 3.43
+--------------------------------
+
+1) License Agreement was updated.
+
+--------------------------------
+* RTC PORTAL VCL 3.42
+--------------------------------
+
+1) All projects recompiled with RTC SDK 3.20
+
+--------------------------------
+* RTC PORTAL VCL 3.41
+--------------------------------
+
+1) All projects recompiled with RTC SDK 3.19
+
+2) Added "RTCPortalHelp.CHM" Help file to the package
+
+--------------------------------
+* RTC PORTAL VCL 3.40
+--------------------------------
+
+1) Extended the "MirrorDriverInstalled" function on the TRtcPDesktopHost component with the "init" parameter. 
+
+   When the init parameter is TRUE and the video mirror driver is installed and enabled, but it was not enabled by us, 
+   it will be disabled. This option is especially useful after driver installation, because the installation routine 
+   will leave the driver enabled and that turns the AERO effect on Windows Vista off. Since we do not want this to 
+   happen before we really start using the mirror driver, disabling the driver after install will solve the problem.
+
+2) The new "init" parameter (see above) is used from the "install" button event, disabling the mirror driver and 
+    enabling the AERO (glass) effect on Windows Vista immediately after the video driver has been installed.
+   
+--------------------------------
+* RTC PORTAL VCL 3.39
+--------------------------------
+
+1) The "Install" button for installing the video mirror driver from the Host Settings dialog will now be waiting 
+   up to 30 seconds for the mirror driver insallation to complete, then check if the mirror driver was installed
+   before showing a propper message dialog to the user (Was the installation OK? Does the user need to reboot?)
+
+This is a minor update of the "btnMirrorInstallClick" event on the Host Settings form ("rdSetHost.pas" unit).
+
+--------------------------------
+* RTC PORTAL VCL 3.38 (b)
+--------------------------------
+
+1) The "Install.bat" and "Uninstall.bat" files in the "VideoDriver" folder had a bug because of which mirror driver 
+   installation and uninstallation would work only if there was no space in the path to the "MirrInst.exe" file. 
+   This has now been fixed, so the content of the "VideoDriver" folder can now be placed anywhere.
+
+--------------------------------
+* RTC PORTAL VCL 3.38
+--------------------------------
+
+1) Added a Timer (1 second interval) to the Desktop Viewer form which will make sure that Control PCs 
+   clipboard will be automaticaly synchronized with Host PCs clipboard when the user moves input focus 
+   to another window, even if no other events are being triggered when Desktop Viewer window loses focus.
+
+--------------------------------
+* RTC PORTAL VCL 3.37
+--------------------------------
+
+1) Found a better way to implement the "Map Keys" feature, which should work for all keyboard layouts.
+
+2) "Map Keys" feature can now send Unicode characters (WideChar) instead of ASCII (AnsiChar), 
+   but the Host will need to be updated and recompiled with the new VCL for this new option to work.
+   To enable sending keys in Unicode format when using the "Map Keys" feature, please open the 
+   "rtcPortalDefs.inc" file from the "Lib" folder and enable the "RTC_UNICODE" compiler directive.
+
+--------------------------------
+* RTC PORTAL VCL 3.36
+--------------------------------
+
+1) <NUM LOCK> and <CAPS LOCK> keys were ignored when the "Map Keys" option was not used, which was not correct.
+   Now, <NUM LOCK> and <CAPS LOCk> keys will be handled as all other keys when the "Map Keys" option is not used.
+
+2) Updated the "Map Keys" feature to handle the CAPS LOCK state on a wide range of international keyboards.
+   In prior versions, the "Map Keys" feature would take <CAPS LOCK> in account only for US and DE keyboards.
+
+3) The default state of the "Map Keys" checkbox on the RTC Control will now be "unchecked" (it was "checked" before).
+   This update only has an effect on the first time RTC Control is started, because changes are stored for later use.
+
+All of these changes are only on the RTC Control side. RTC Host does not have to be modified for this to work.
+
+--------------------------------
+* RTC PORTAL VCL 3.35
+--------------------------------
+
+There was a minor bug in the new screen capture code for marking regions which need to be scanned for changes.
+In most cases, this bug would result in more of the screen to be schanned than necessary, but in some cases,
+it could also result in some changes on the screen to be left out (not sent). This bug has now been fixed.
+
+--------------------------------
+* RTC PORTAL VCL 3.34
+--------------------------------
+
+1) Screen Encoder and Decoder used with the video mirror driver modified to improve the average image compression ratio.
+
+   Using a new RTC Control (compiled with RTC Portal VCL 3.34 or later) will allow you to control and view older and newer RTC Hosts, because 
+   the new image decoder understands the old and the new image format, but ... because this version introduces new image encoding and decoding 
+   functions, which older RTC Host and Control versions do not understand, you will NOT be able to use any older RTC Control version to view or 
+   control a RTC Host compiled with RTC Portal VCL 3.34 or newer. You will also NOT be able to use the "Show my Desktop to Host" function on
+   a new RTC Control to show your desktop to a user working with an old RTC Host if your RTC Control PC has the video mirror driver installed.
+
+   In other words, all RTC Controls have to be updated before any RTC Hosts are updated. Once all RTC Controls have been updated, they can be
+   used to connect to old RTC Hosts and update them remotely. New screen encoding functions will be used automatically with any RTC Host compiled
+   with this or later RTC Portal VCL version.
+
+2) Updated color reduction functions to keep the white color WHITE and not change it into gray in lower color depths. The lower the color depth, 
+   the more light gray colors will now become WHITE instead of being reduced to gray. Other colors are not affected and the overall image quality 
+   remains the same. In previous versions, using reduced color depth would also mean having white colors reducet to gray, which can get annoying.
+
+   And because white and black color have the highest possible compression ratio (white = $FFFFFFFF, black = $00000000), 
+   this minor change also improves the overall image compression ratio (providing there is white color on the screen).
+
+--------------------------------
+* RTC PORTAL VCL 3.33
+--------------------------------
+
+1) "Priority" setting in the RTC Host, Viewer and Control projects will now be stored on every change and loaded on start up.
+   This goes for the normal RTC Control, Viewer and Host applications, as well the Host running as a Windows Service.
+
+NOTE:
+   RTC Host threads are already running at higher priority (search for "RTC_THREAD_PRIORITY" in rtcHostForm and rtcHostSvc units)
+   to make sure they will receive enough CPU time even when other applications are using 100% CPU (for example, animations 
+   or applications running complex calculations). This means that RTC Host process running at "NORMAL" priority will still 
+   receive more attention from the CPU than some other application running with NORMAL priority. In case RTC Host is forcing
+   your other applications to start crawling, you should comment out the code which sets RTC_THREAD_PRIORITY (see above).
+
+--------------------------------
+* RTC PORTAL VCL 3.32
+--------------------------------
+
+1) Added "Send_FromFolder" property to TRtcPFileTransferUI component. 
+   This property returns the parent folder from which the current file or folder is being sent out during 
+   file transfer and is accessible from all "OnSend..." events on the TRtcPFileTransferUI component.
+
+2) Updated all "On_File..." events on the TRtcPFileTransfer component to include "filename" and "path" 
+   as parameters instead of a single "folder" parameter. What has happened now is that the old "folder" 
+   parameter has been renamed to "filename", while a new "path" parameter was added (parent folder).
+   This allows monitoring of all file transfer operations by using the TRtcPFileTransfer component.
+
+3) Updated the File Transfer Form to display the outgoing folder ("from ...") when sending files or folders.
+   In prior versions, only the file/folder name was displayed. Parent folder was not displayed (now it is).
+
+--------------------------------
+* RTC PORTAL VCL 3.31
+--------------------------------
+
+1) Screen capture code for sending a screen region instead of the whole Desktop was not working right
+   when the mirror driver was disabled and the screen was sent in more blocks (the image was "skewed"). 
+   This has now been fixed, so that all modes can again be used with and without the mirror driver.
+
+2) Video Mirror Driver is now deployed in 3 versions (ver1 32bit, ver2 32bit and ver2 64bit) and
+   all 3 versions can now be installed and uninstalled using a simple bat file, or fully automated 
+   from an application by using the ShellExec() API. In other words, there is no more need for user 
+   to manually run the mirror driver setup or uninstall, you could now add buttons to your applications
+   which would only need to be clicked for the appropriate mirror driver to be installed or uninstalled.
+
+3) Added "MirrorDriverInstalled" function to the TRtcPDesktopHost component, 
+   which will return TRUE if the video mirror driver is installed and ready for use.
+
+4) Added a label right from the "Use Video Mirror Driver" checkbox to the Host Settings dialog will now 
+   display the text "(installed and ready)" when the Video Mirror Driver is installed and ready to be used,
+   or "(driver NOT installed)" if the Video Mirror Driver is not installed or is currently not accessible.
+
+5) Added "Install" and "Uninstall" buttons for installing and uninstalling the video mirror driver 
+   to the "Host Settings" dialog. In order for these buttons to work, the "VideoDriver" folder with all 
+   its files from the RTC Portal VCL package needs to be placed in the same folder as the RTC Host executable,
+   like it is the case in the "RTC Portal - Executables" package. If these files are missing, 
+   "download" button will be enabled instead, pointing the user at the DFMirage download site.
+
+--------------------------------
+* RTC PORTAL VCL 3.30
+--------------------------------
+
+1) Fixed some bugs and made some improvements to the new screen capture code.
+
+2) Added 6 new "Low Color" reduction modes for use with new screen capture code.
+
+3) Updated Host Settings dialog and Desktop Viewer Form to work with new "Low color" options.
+ 
+--------------------------------
+* RTC PORTAL VCL 3.29
+--------------------------------
+
+1) "GSendImageInBlocks" option on the TRtcPDesktopHost component split into 4 new options:
+
+   * GSendScreenInBlocks (from 1 to 12 blocks)
+     - Sets the number of frames (interlaced images when using video mirror driver) into which 
+       the screen will be split when sending new screen data.
+
+   * GSendScreenRefineBlocks (from "Auto" to 12 blocks)
+     - Sets the number of frames image refining should be spread across when "Low Color depth" 
+       is lower than "High Color depth" and the image needs to be refined to "High color depth".
+
+   * GSendScreenRefineDelay (from 0.5 to 20 seconds)
+     - Defines how long before a Low color depth image should start being refined to High Colors.
+
+   * GSendScreenSizeLimit (from "Auto" to 512 KB)
+     - Defines how much data you want to allow to be sent in a single package.
+       Initial screen data (using Low Color depth) will not be split below 1 frame pass,
+       but image regining will also be split by line to keep traffic below set value.
+
+2) "ChgDesk_SendImageInBlocks" method on TRtcPDesktopControl & UI split into 3 new methods:
+
+   * ChgDesktop_SendScreenInBlocks - sets "GSendScreenInBlocks" value on the Host
+   * ChgDesktop_SendScreenRefineBlocks - sets "GSendScreenRefineBlocks" value on the Host
+   * ChgDesktop_SendScreenRegineDelay - sets "GSendScreenRefineDelay" value on the Host
+   * ChgDesktop_SendScreenSizeLimit - sets "GSendScreenSizeLimit" value on the Host
+
+3) Updated Host Settings dialog to use new Screen capture options.
+
+4) Updated Control Panel on the Desktop Viewer Form to use new Screen Capture options.
+
+5) Screen capture using video mirror driver optimized.
+
+--------------------------------
+* RTC PORTAL VCL 3.28
+--------------------------------
+
+1) DFMirage 2.0.105 video driver with 32bit and 64bit Windows support is now included.
+   This new video driver release fixes problems on Windows Vista and 2008 caused by the old video mirror driver.
+   For instructions on installing the new video driver, read the "install.txt" file in the "VideoDriver" folder.
+   
+2) RTC Host launcher Service cleaned up and optimized.
+
+3) RTC Host process updated to react to the windows shutdown message (close connection and terminate).
+
+--------------------------------
+* RTC PORTAL VCL 3.27
+--------------------------------
+
+1) Fixed problems with RTC Host launcher Service.
+
+   a) In a prior version of the RTC Host launcher Service, the RTC Host process was being spawned 
+      too soon after user logout, which could have resulted in Windows crashing with a Blue Screen. 
+      Now, RTC Host launcher Service will wait 30 seconds after the user has logged out before it 
+      tries to spawn a new RTC Host process, which should solve the problem on most systems. 
+
+   b) When stopping the RTC Host launcher Service, all instances of RTC Host were killed, which 
+      has resulted in the last RTC Host user to remain visible as "logged in" on the Gateway.
+      Now, instead of killing Host processes, the Service will log in as that user, which will
+      result in the Gateway kicking out currently logged in user and the Host will close itself.
+
+2) Changed "AUTORUN" to "-AUTORUN" command-line parameter on the RTC Host project.
+
+3) Changed "SILENT" to "-SILENT" command-line parameter on the RTC Host project.
+
+4) Added "-VISTA" command-line parameter to the RTC Host project.
+
+   If "-VISTA" command-line parameter is specified when running the RTC Host exe and the user is on Windows Vista,
+   RTC Host will be temporarily installed as a service, the RTC Host service will be started, the Host Service 
+   will spawn (create) exactly one new RTC Host process, then the Service will be stopped and uninstalled, leaving 
+   the newly spawned process running with the same privileges as the Service, allowing control of the Windows 
+   Vista UAC screen without the need for any special care to be taken. You can close the Host normally when finished.
+
+   Note: This will work ONLY if the user starting the RTC Host exe has enough privileges to install a Service.
+         If the user does NOT have enough privileges to install a new Windows Service, RTC Host will not start.
+
+5) Added "RtcHostOnvista.cmd" file as an example on how RTC Host could be started on Vista when the user has Admin rights.
+
+--------------------------------
+* RTC PORTAL VCL 3.26
+--------------------------------
+
+1) Added "GColorLowLimit" and "GColorReducePercent" properties to the TRtcPDesktopHost component. 
+   Both properties have an effect only if the Host has installed and enabled the video mirror driver.
+
+   "GColorLowLimit" property is used with new dynamic color reduction functionality, 
+      which can improve performance by first sending the image using Low Color depth 
+      and then gradually refining the image using a Higher Color depth.
+
+   "GColorReducePercent" property is always used in combination with the "GColorLowLimit" property 
+      and defines how much (in percentage) the reduced color image file should be smaller to use low colors.
+      If this value is 0, then low color image will be used on the first pass, regardless of size savings.
+
+2) "GSendImageInBlocks" property on the TRtcPDesktopHost component changed from boolean to a custom type
+     giving the user more customization options when splitting the screen in multiple frames, and ... implemented 
+     interlaced screen processing when using the video mirror driver and sending the screen in more than 1 frame.
+    
+   When the Host has installed and enabled the video mirror driver and the screen has to be sent in blocks, new 
+   interlaced screen capture mode will be used. In this new screen capture mode, the screen is split in up to 8 
+   interlaced images (depending on the "GSendImageInBlocks" property), which can be individually processed and sent, 
+   thus reducing the time between screen updates to 1/8.
+
+   This option can be combined with the "GColorLowLimit" and "GColorReduceFactor" options to greatly improve remote view 
+   and control experience by shortening the time the viewer/controller needs to wait to see what is happening on the Host.
+
+3) "ChgDesktop_SendImageInBlocks" method on the TRtcPDesktopControl and TRtcPDesktopControlUI components 
+   changed to accept the same parameter type as the updated "GSendImageinBlocks" property.
+
+4) Added "ChgDesktop_ColorLowLimit" and "ChgDesktop_ColorReducePercent" methods added to TRtcPDesktopControl & UI components.
+
+5) Control Panel on the DesktopViewer Form used for remotely changing Host settings is now updated to use the new methods. 
+   Also, radio buttons have been replaced by Drop Down Combo boxes to reduce space requirements.
+
+6) Host Settings dialog used in the RTC Host project updated to use the new and modified Screen Capture options.
+
+--------------------------------
+* RTC PORTAL VCL 3.25
+--------------------------------
+
+1) Fixed problems with restarting the RTC Host Service remotely.
+   The problem with RTC Host Service was that it would try to reconnect to the Gateway during shutdown or restart,
+   because of which the restart/shudtown process would be paused until you reconnect and try again. 
+   This has now been fixed, the Host Service can now be able restarted or shut down normally.
+
+2) TRtcPDesktopHost component changed to allow the use of Send_HideDesktop and Send_ShowDesktop methods on the 
+   TRtcPDesktopControl component before the Desktop Session was initialized. This means that you can now make 
+   sure that a Wallpaper on the Host will be hidden before you start receiving Hosts Screen data to reduce traffic.
+
+3) Added "Hide Wallpaper" checkbox to RTC Control. When this option is checked and the user initiates a new "View Desktop" 
+   session, if the Host currently has a Wallpaper, it will be removed to reduce traffic when sending the initial screen.
+
+4) Added "Use 256 colors" checkbox to RTC Control. When this option is checked and the user initiates a new "View Desktop"
+   session, the Host will be forced to reset its Color Limit to the default value of maximum 256 colors (8bit).
+
+5) Added an example "Desktop Save" data module, which can be used instead of the "Desktop Viewer" form to
+    have a JPEG file created and continually updated with the latest snapshot of the Desktop Screen received 
+    (non-visual mode) instead of displaying the Desktop Screen in a Form.
+
+6) Added TRtcPDesktopControl component to the RTC Host Service and implemented the "OnNewUI" event to create
+    a "Desktop Save" data module (see point 2), which will be continually updating a JPEG file containing 
+    Screen Data received from any RTC Control which chooses to send its screen to that Host by using the
+    "Show my Desktop to Host" feature. When Desktop Session closes, JPEG file will be deleted.
+
+    By using a WebServer and some HTML code, this feature could be extended into a simple HTML Viewer, allowing
+    anyone to watch a live presentation without installing anything on their PC - except a Web Browser.
+
+
+--------------------------------
+* RTC PORTAL VCL 3.24
+--------------------------------
+
+1) "DrawScreen" method on the "TRtcPDesktopControlUI" component modified so it is no longer limited to 
+   TPaintBox component descentants, but can also be used to Draw the Host Screen onto any Canvas of any size.
+
+   Here is the new declaration of the "TRtcPDesktopControlUI.DrawScreen" method:
+
+   procedure DrawScreen(Image:TCanvas; ImageWidth,ImageHeight:integer; Container:TControl=nil; FullRepaint:boolean=False);
+
+   * If Container is specified, it is assumed to be the control containing the Canvas (example: "TRtcPDesktopViewer" component)
+   * If Container is not specified, View-only mode is assumed and Cursor will be painted on the Canvas.
+  
+2) Added a new "AutoScroll:boolean" property to the TRtcPDesktopControlUI component.
+
+   If Screen image is inside a TControl (for example, the TRtcPDesktopViewer component) and that TControl is inside a TScrollBox,
+   you can set the "AutoScroll" property to TRUE to make scroll bars in the parent TScrollBox move automatically into position 
+   to keep Hosts mouse cursor visible at all times. This option is most useuful when you are watching a presentation in 100% scale,
+   but you do not have a large enough resolution to see the whole Host screen, so that scrolling is required to follow the presenter.
+
+3) Changed rdDesktopViewer (used by Host, Viewer and Control) to use the new "AutoScroll" feature.
+
+4) Desktop Viewer Form will now change to Windowed mode if it was in  Full Screen mode when Desktop Session was closed.
+
+--------------------------------
+* RTC PORTAL VCL 3.23
+--------------------------------
+
+1) TRtcPDesktopHost component modified to allow Desktop Control users to change Hosts Desktop Capture settings
+   at any time, even if there is no Desktop View/Control session currently active for that user. As long as the
+   user has sufficient access rights, he can request Desktop Capture settings to be changed by the Host.
+
+2) Added "ChgDesktop_" methods to the TRtcPDesktopControl component to make it easier for RTC Control to change 
+   Hosts Desktop capture settings before starting a new Desktop Session. For more info, please see comments 
+   added to the RTC Control Form inside "Desktop View" buttons "OnClick" event.
+
+--------------------------------
+* RTC PORTAL VCL 3.22
+--------------------------------
+
+1) Eliminated the need for a separate RTC Host Launcher EXE for running the Host as a Service on Windows Vista by 
+   extending the Service code in the RTC Host EXE to act as the RTC Host process launcher on Windows Vista and later.
+
+   * Moved all functions required by the RTC Host Launcher to the "rtcWinLogin" unit and added dynamic DLL loading.
+   * Added logging to the RTC Host Service when acting as the RTC Host process launcher and made some code improvements.
+   * Removed code from the RTC Host project for using a separate launcher, since the Host itself is now the Launcher on Vista.
+   * Removed the "RTC Host Launcher" Service project.
+
+--------------------------------
+* RTC PORTAL VCL 3.21
+--------------------------------
+
+1) Using RTC Control, double-clicking on a user in the list of available Hosts will now execute the last action used 
+   on any other user ("Chat", "File Transfer", "Browse Files", "View Desktop" or "Show my Desktop to Host") instead
+   of always executing the "View Desktop" option (as before).
+
+   The button of the action to be executed on Double-click is also underlined and set as "default", so that the user can 
+   see what is going to happen on double-click, as well as use the <Enter> key to execute the last action on selected user.
+
+2) Extended the "Send" method on the TRtcPFileTransfer and TRtcPFileTransferUI components to work with any destination folder (not only "INBOX").
+   When the destination folder (ToFolder) is not specified, files and folders will be sent to the "INBOX" folder (as before).
+   If the destination folder is specified and the client (Host or Control) allows files to be uploaded anywhere,  
+
+3) Added "GUploadAnywhere" and "GUploadAnywhere_Super" properties to the TRtcPFileTransfer component, with default value set to FALSE.
+   Since Uploading of files outside of the "INBOX" folder could pose a security threat to the receiver (files could be overwritten), 
+   especially if done silently in the background, receiver has to explicitly allow uploading of files to any folder (outside of "INBOX").
+   If this property is FALSE, files and folders will alway end up in the INBOX folder, even if the sender specifies another destination.
+
+4) Added "Upload Anywhere" checkboxes to the Host Settings Dialog for setting the new "GUploadAnywhere" properties (see point 3).
+
+5) Updated the File Transfer Form to display the destination folder when receiving files, when files are not being uploaded to "INBOX".
+   Clicking on the label with the folder name will open that folder in Windows Explorer ("INBOX" button has been removed).
+
+   When file transfer completes, the INBOX folder will be opened *only* if files were being uploaded to the default INBOX folder.
+   When uploading files to any other folder, or when the folder was explicitly specified by the sender (even when it was the INBOX folder), 
+   the destination folder will not be opened in Windows Explorer, as we can presume the file has been uploaded to its final destination.
+
+6) First experimental RTC Host Launcher Service for Windows Vista (contribution from Ross Harvey) and RTC Host modifications to Install, 
+   Run, Stop and Uninstall the RTC Host Launcher instead of the RTC Host project on Windows Vista. This Launcher Service will be periodically 
+   checking if the Host process is running and will start the Host process with the "-autorun -silent" parameters inside the current desktop 
+   session if it isn't running already. It is not a final solution to the Vista Services problem, but it's the first step in the right direction.
+
+7) Extended RTC Host to work with the new RTC Host Launcher by adding a new "-silent" command line parameter. 
+   This will make the process run in "silent" mode, where no message dialogs will be displayed before closing 
+   and the Host will automatically close itself if there are problems connecting to the Gateway. 
+   In this mode, the Host will prefer to close itself rather than waiting for user interaction.
+
+--------------------------------
+* RTC PORTAL VCL 3.20
+--------------------------------
+
+1) Swapped locations of the "Teacher" and "Supporter" options in the "Role on Host" drop-down list in RTC Control,
+   so that the bottom option (Admin) will now give you full control, while options more to the top will give a bit 
+   more control to the person sitting in front of the Host PC, and the topmost option (Viewer) makes you into 
+   a passive viewer with no control over the Host PC.
+
+   "Viewer" is the role in which you can not take control of the Host PC, even if you click or use the keyboard.
+
+   "Supporter" is the role best suited when you are working together with the person you are supporting,
+     where the person you are supporting can simply take the mouse without your explicit permission.
+
+   "Teacher" is the role which can also be used by when you are alone on the PC, while also allowing
+     the user sitting at the Host to take control of the mouse while Control user does not interfere.
+
+   "Admin" is the role with highest control privileges, used when you need to control the PC alone.
+
+2) Changed a few things on the Desktop Viewer related to the new auto-hide Control Panel:
+
+   - Moved Options and Host Settings Panels from (5,5) to (10,10)
+   - Change the area in which the mouse has to be for the Control Panel to show.
+     Now, the main area is 5x5 pixels in the top-left corner, with a secondary area being 2 pixels high but as wide as the panel itself.
+   - Added sensibility to mouse button state when showing the Control Panel.
+     Now, the Panel will NOT show if either left or right mouse buttons are pressed while entering the "auto-show area"
+   - Hiding Control Panel if any mouse button is clicked outside of the Control Panel (slto above and left from it) if visible,
+     allowing normal control of the area around the Control Panel even if the Control Panel should show up.
+   - Removed the code which was always bringing the Desktop Viewer Form to the front when the user would move the mouse over it (OnMouseMove event)
+   - Added some text to the Host Desktop Settings panel to inform the user of what he has to do
+   - Changed the Cancel and OK button icons to standard Cancel and OK icons
+   - Fixed the code which made the Host Settings options panel auto-cancel itself if the user would move away from it
+
+--------------------------------
+* RTC PORTAL VCL 3.19
+--------------------------------
+
+1) Reduced traffic between Host, Gateway and Control to minimum when there are no changes on the Host.
+
+   There was a bug in the old implementation which was forcing the Host to continually send mouse 
+   cursor location, even when the mouse was not moving nor changing shape, which has been causing 
+   unnecessary traffic from Host to Gateway and from Gateway to Control. This has now been fixed.
+   The Host still needs to "ping" the Gateway continually, but there will be no screen or mouse
+   data sent to the Gateway, so that Control will no longer be flooded with mouse cursor info.
+
+2) Fixed an error in the screen drawing routine which caused the mouse cursor to be drawn on its 
+   old location (the mouse would have apeared dispositioned) instead of the current one.
+   
+3) Fixed the "Complete Frames" option in the Host Settings panel on the Desktop Control window (it was reverse).
+
+4) Added a new TRtcDataProvider to the stand-alone RTC Gateway (process and service) which will return a HTML webpage 
+   when you enter Gateways Address and Port in a WebBrowser (http://myip:myport), so you can test if the Gateway is 
+   running and accessible without having to use RTC Host or Control. Same as on the ISAPI project, this new
+   DataProvider is on the DataModule with the TRtcHTTPServer component and NOT on the DataModule implementing 
+   the rest of the Gateways functionality.
+
+5) Added a new "DataSendTimeout" property to the "TrdServerModule" class (DataModule) in the "rdServer" unit 
+   and set its default value to 20 (seconds). This property can be used to set the time (in seconds) how long
+   the Gateway will wait for for a client receiving data to get the package and return back to the Gateway.
+   If a client takes longer than time specified (seconds) to receive the complete package and send a new 
+   request, that clients session will be closed and the client will be logged out from the Gateway.
+
+   This update applies to the RTC Gateway.
+   
+   Because of this new property and its default value of 20 seconds, Gateway and all other clients connected 
+   to the Gateway will be logged out (disconnected) if they do not contact the Gateway for longer than 20 seconds.
+
+6) Clicking the Video Mirror Driver URL in the Host Settings Dialog will open that URL in users default Browser.
+
+NOTE: For the above optimizations to have an effect, Host and Control projects need to be recompiled.
+
+--------------------------------
+* RTC PORTAL VCL 3.18
+--------------------------------
+
+1) Fixed a bug in Mouse Cursor drawing routine which resulted in mouse trails, as well as another issue because of which 
+   the "Exact Cursor" option had to be disabled when controlling a Virtual Machine running in a Window on the Host.
+
+2) Fixed issues with automatic Clipboard synchronization (Copy/Paste) between Host and Control.
+
+3) Added the following public methods to the TRtcPDesktopControlUI component, 
+   which can now be used for changing Hosts Desktop settings remotely from Control:
+
+  - procedure ChgDesktop_Begin;
+  - procedure ChgDesktop_ColorLimit(const Value:TrdColorLimit; Sender:TObject=nil);
+  - procedure ChgDesktop_FrameRate(const Value:TrdFrameRate; Sender:TObject=nil);
+  - procedure ChgDesktop_UseMirrorDriver(Value:boolean; Sender:TObject=nil);
+  - procedure ChgDesktop_UseMouseDriver(Value:boolean; Sender:TObject=nil);
+  - procedure ChgDesktop_SendImageInBlocks(Value:boolean; Sender:TObject=nil);
+  - procedure ChgDesktop_CaptureAllMonitors(Value:boolean; Sender:TObject=nil);
+  - procedure ChgDesktop_CaptureLayeredWindows(Value:boolean; Sender:TObject=nil);
+  - procedure ChgDesktop_End(Sender:TObject=nil);
+
+  NOTE: Changes done using these new methods will affect the Host in the same way as changes done using the Host Settings dialog on the Host.
+  In other words, if you change a setting using one of these methods, it will be stored on the Gateway and used on the next login.
+
+4) Extended TRtrcPDesktopHost component to implement the functionality needed by new methods on the TRtcPDesktopControlUI component (see point 3).
+
+5) TrdColorLimit and TrdFrameRate constant definitions moved from the "rtcpDesktopHost.pas" unit to a new "rtcDesktopConts.pas" unit.
+
+6) Added a new (auto-hide) Panel to the Desktop Viewer Form (becomes visible when the mouse cursor is moved in the left-top corner) with:
+
+  - "Full Screen / Windowed mode" switch
+
+  - "Smooth View" switch
+
+  - "Map Keyboard" switch
+
+  - "Exact Mouse Cursor" switch
+
+  - "Host Settings" button which will show a Panel, allowing the user with Deskotp Control rights 
+    on the Host to change all Desktop Host Settings directly, even when the Host is running as a Service:
+
+      Complete Frames? (Y/N), Layered Windows? (Y/N), Video Mirror Driver? (Y/N), Mouse Driver (UAC)? (Y/N),
+      Capture All Monitors? (Y/N), Color Limit (8 bit .. 32 bit), Frame Rate (Maximum .. 500ms delay).      
+
+    This Panel does NOT display current Host settings, but it allows you to change only on the settings you want changed. 
+    Any options which you do NOT touch (no radio buttons selected for that option) will be left unchanged on the Host.
+
+    All options can be set and accepted with a click on "OK", or discarded with a click on "Cancel".
+    After clicking "OK", anything set in this panel (options clicked) will be sent to the Host in a single call,
+    so there will be only one screen refresh required for all the changes to take effect (not a separate for each option).
+
+  - "Hide/Show Wallpaper" switch
+
+  - "Send <Ctrl+Alt+Del>" button
+
+  - "Download Selected File or Folder" button:
+     (downloads any file or folder currently selected in Windows Explorer on the Host)
+
+  NOTE: Changes done using these new options will affect the Host in the same way as changes done using the Host Settings dialog on the Host.
+  In other words, if you change a setting using one of these methods, it will be stored on the Gateway so it can be used on the next login.
+
+
+--------------------------------
+* RTC PORTAL VCL 3.17
+--------------------------------
+
+1) Added "Open" method to the TRtcPDesktopHost component, so that Desktop Host component can now 
+   also be used to invite Viewers and/or Controls to see your Desktop - and not only the other way around.
+
+2) Added "Show my Desktop to Host" feature to RTC Control and updated RTC Host to support this new feature.
+   Using this new feature, user of RTC Control can now invite one or more RTC Host users to see its Screen.
+
+   When clicking the "Show my Desktop to Host" button, Control user will be asked to click "YES" and 
+   select a screen region to show to the Host, or click "NO" to show the whole Primary Display.
+
+   By default, Control settings for showing the desktop will not be stored on the Gateway. Instead, 
+   Control will always use the video mirror driver (if installed), use 256 color mode (8 bit),
+   send complete blocks (not split screen in smaller blocks) and use maximum frame rate. 
+   You can change all these settings in the Control, they are implemented on the "Show My Desktop" button.
+
+   Mirror driver will be initialized (if installed) directly before use and deinitialized when all Hosts 
+   have been disconnected. Connections from Hosts will be allowed only when a Host is invited to see
+   the Screen and disallowed immediately afterwards, so that even a modified Host can not simply send 
+   a request to see Controls screen - unless the screen is currently being shown to one or more Hosts.
+
+   Once one or more Host users have been invited to see Controls Desktop, RTC Control will see a list 
+   of all Hosts connected to its Desktop and be able to disconnect any Host/Viewer simply by double-clicking 
+   its username in the list, or ... disconnect all connected viewers by clicking on "Stop showing my Desktop".
+
+   NOTE1: This feature also works if the Control is currently viewing Desktops of one or more Hosts. 
+         To minimize traffic, it is recommended that, in case Control is also viewing Hosts screen,
+         that the Control selects a screen region which does not include his own View of Hosts screen,
+         or all changes on either side will continually be sent back-and-forth to keep both images in sync,
+         which could costs both users a lot of traffic. Another option to reduce traffic while showing its
+         Desktop to one or more Hosts is for the Control to close his Desktop Viewers to selected Host(s).
+
+   NOTE2: This feature is now only implemented in the Host running as a normal process, 
+          because the Host running as a Service does not use any Windows (not even Chat).
+
+--------------------------------
+* RTC PORTAL VCL 3.16
+--------------------------------
+
+1) There was a bug in the RTC Portal VCL because of which sending of files larger than
+   2 GB did not work correctly. File Transfer would work for some files, but not for others.
+   This bug has now been fixed. Files and folders of up to 4 TB is size can now be sent 
+   with a single drag&drop operation using the new RTC Portals File Transfer functionality.
+
+2) There was a bug in earlier versions of the RealThinClient SDK 3.x which made it impossible to work 
+   with content lengths larger than 2 GB. This bug has been fixed in the RealThinClient SDK 3.16 and 
+   all RTC Portal VCL projects have been recompiled with RealThinClient SDK 3.16 and Delphi 2009.
+
+--------------------------------
+* RTC PORTAL VCL 3.14
+--------------------------------
+
+1) Changed "CloseAndClear" methods on TRtcPDesktopControlUI, TRtcPChatUI and TRtcPFileTransferUI components to functions,
+   returning TRUE if the component may be freed, or FALSE if it can not be freed yet (it is still in use).
+
+   If "CloseAndClear" has returned FALSE, "OnLogOut" event will be triggered later on the UI component when the component may 
+   safely be freed. If "CloseAndClear" has returned TRUE, you can free the component now (there will be no more events triggered).
+
+   You can call the "CloseAndClear" method more than once. Only the first call can return FALSE, while all other 
+   consecutive calls will always return TRUE, so you can call this function directly from the "OnCloseQuery" event 
+   to determine if the form may now be closed.
+
+
+2) Changed the rdDesktopViewer, rdChat and rdFileTransfer units to use the new "CloseAndClear" method as explained above, 
+   removing the call to "Close" or "CloseAndClear" from Form's "OnClose" event and adding a new implementation for the 
+   "OnCloseQuery" event to set "CanClose:=myUI.CloseAndClear;", so the form will be closed when the components are not in use.
+
+   If you are using your own version of DesktopViewer, Chat or FileTranfer forms, please make the same changes there to use 
+   this fix. If you continue using the code as it was before, it might generate ocasional AVs when closing these forms.
+   Here is the implementation of events on DesktopViewer, Chat and FileTransfer forms, using the new "CloseAndClear" method ...
+
+   "OnClose" event on the Form:
+     begin
+     Action:=caFree;
+     end;
+
+   "OnCloseQuery" event on the Form:
+     begin
+     CanClose:=myUI.CloseAndClear;
+     end;
+
+   "OnLogOut" event on the "myUI" component on the Form:
+     begin
+     Close;
+     end;
+
+
+--------------------------------
+* RTC PORTAL VCL 3.13
+--------------------------------
+
+1) Added "CloseAndClear" methods to TRtcPDesktopControlUI, TRtcPChatUI and TRtcPFileTransferUI components.
+
+   This new method will set the "Module" property to NIL before sending the "close" message out to the Gateway, 
+   making sure that any messages which might arrive while our Form is being destroyed will be ignored to avoid 
+   a problems by possible Access Violation errors caused by events called on recently destoryed objects.
+
+2) Changed the rdDesktopViewer, rdChat and rdFileTransfer units to use "CloseAndClear" 
+   instead of "Close" from their forms "OnClose" event implementations.
+
+--------------------------------
+* RTC PORTAL VCL 3.12
+--------------------------------
+
+1) All known problems with Multi-Monitor support have been fixed.
+
+  a) Host mouse cursor position is now correctly sent to Control/Viewer.
+
+  b) Mouse movements and clicks from Control are now correctly sent and executed on the Host.
+
+  c) Selecting a Screen Region on the Host now works with full Multi-Monitor support across all displays.
+
+  d) All displays are now correctly captured and sent to the Controls/Viewers, regardless of their position/order.
+
+2) Added "GCaptureAllMonitors" property to the TRtcPDesktopHost component.
+  
+   This property will be stored on the Gateway and restored from the Gateway after user login, 
+   so it has to be set only once per Host and can be changed for every Host as needed.
+
+3) Removed the requirement for the "MULTIMON" compiler directive when Multi-Monitor support is wanted/needed.
+
+   Now, it is no longer required to declare the "MULTIMON" compiler directive in your Host project for using MultiMonitor support. 
+   Instead, you have to set the "CaptureAllMonitors" property to TRUE when you want to use this feature, or to FALSE when you want
+   only the Host only to have access to the Primary Display/Monitor. It is still possible to compile the Host without the option 
+   to have Multi-Monitor support by opening the "rtcPortalDefs.inc" file from the Lib folder and removing the {$DEFINE MULTIMON} 
+   directive and recompiling the RTC Portal VCL package. But since this feature is disabled in the Host by default, it should not 
+   be a problem if this option stays compiled into the Host even when it is being used on old Windows systems which do not have 
+   support for working with multiple monitors.
+
+4) Removed the requirement for the "KMDriver" compiler directove when you want to use the Virtual Mouse Driver for UAC control.
+
+   Same as with the MULTIMON compiler directive, the KMDriver compiler directive is now declared inside the "rtcPostalDefs.inc" file.
+   Also, same as with Multi-Monitor support, there is a new "GUseMouseDriver" property on the TrtcPDesktopHost component which has
+   to be TRUE when you want to use the Virtual Mouse Driver to enable mouse control when the UAC screen pops up on Windows Vista.
+   "MouseA.dll" and "MouseA.sys" files need to be placed in the same folder as the Host executable, or inside the Windows System32 folder.
+ 
+
+
+5) Host Settings dialog extended with checkboxes for new Multi-Monitor and Virtual Mouse Driver support.
+   In other words, the new Host now has support for working with Multiple Displays/Monitors out-of-the-box.
+
+   UAC control will *NOT* work out-of-the-box because UAC manifest file would need to be compiled into the Host project, 
+   but if the Host EXE is not signed and run from a trusted folder, it would not start at all when compiled with the UAC manifest.
+
+   If you need the functionality to control the UAC screen on Windows Vista, please follow the instructions below ...
+
+   A) Included with a manifest which incorporates the "highestAvailable" authority and uiAccess = "True" 
+      (this manifest is already supplied in RTCPortal, you just need to uncomment the appropriate resource in the RTCHost project file).
+
+   B) The EXE must be digitally signed, AND if you're using a test certificate that must be put into the 
+      "Trusted Root Certification Authority".  The signing is easy with GUI tool http://www.x2net.com/signcode/.  
+      The certificate (.cer file) that comes with can be installed by right-clicking, then "Install Certificate", 
+      and then in the wizard manually select the "Trusted Root Certification Autority" folder.
+
+   C) The EXE must live in either \Program Files\ or \<Windows>\System32\.
+      * - if it isnt, it starts up OK but simply doesnt give you the ability to control other GUI's without telling!
+
+   D) Distribute the "MouseA.DLL" and "MouseA.Sys" files with your Host EXE.
+
+   E) Use the Video Mirror Driver and the Virtual Mouse Driver.
+
+
+6) Changes in Host Screen Resolution or Display order are now recognized when using with and without the 
+   video mirror driver and screen capture will automatically be reinitialized to reflect this on Control/Viewer.
+   The solution is not perfect, because it requires the mirror driver to be disabled, all settings reinitialized, 
+   then enabled and the whole screen be sent again (not only delta), but - unfortunatelly - this was the only way to get this working right.
+
+
+--------------------------------
+* RTC PORTAL VCL 3.11
+--------------------------------
+
+1) Jung Wook Lee's modifications in the "rtcScrCapture.pas" and "dfmVideoDriver.pas" units are now included in the 
+   standard RTC Portal VCL distribution, so there is no need for extra downloads or manual modifications 
+   if you were using Jung Wook Lee's solution for Vista UAC control and/or Multi-Monitor support.
+
+   "MouseA.dll" and "MouseA.sys" files are included in the "Lib" folder, please copy them to the apropriate 
+   folders if you are using the code for UAC Support. You still need to  declare the "KMDriver" compiler directive when 
+   compiling the Host project, include the manifest file in the Host project (uncomment the line with "rtcportaluac.res" 
+   in the Host Project file), sign the Host EXE and place it in a trusted folder like "C:/Program Files". 
+
+   Since this is a non-standard functionality, in addition to the "KMDriver" compiler directive, there is also a
+   property which has to be set to TRUE in order to enable the Virtual Mouse Driver. The property is on the TRtcPDesktopHost 
+   component under the name "GUseMouseDriver". If the "KMDriver" compiler directive is not declared for the Host project, 
+   or the GUseMouseDriver variable is not TRUE, or the manifest file is not compiled into the EXE, or the EXE is not signed 
+   with a trusted certificate, or the EXE is not placed in a trusted folder, or the MouseA.dll and MouseA.sys files are not 
+   found by the Host when running, UAC control will NOT work on Vista.
+
+   For more information on setting up your Host to work with UAC on Vista, please check RTC Forums.
+
+   If you want Multi-Monitor support, so that all connected monitors are sent remotely from the Host and not only
+   the primary display, simply rebuild the Host with the "MULTIMON" compiler directive. No extra files are needed.
+
+NOTE: UAC and Multi-Monitor functionality is not guaranteed to work on all systems. Because of rather complex 
+      requirements for UAC control on Vista, there is also no official support for using the above functionality.
+      However, should you have questions about UAC or Multi-Monitor support, or have problems using either, feel
+      free to post about your issues on the RTC Forums.
+
+--------------------------------
+* RTC PORTAL VCL 3.10
+--------------------------------
+
+1) New "OnQueryAccess" event for the TRtcPDesktopHost, TRtcPFileTransfer and TRtcPChat components on the Host side.
+
+   These events will be fired on the Host side components whenever a Viewer or Control requests access.
+   You do not need to implement these events if you do not want to implement additional access control
+   mechanisms in the Host (for example, to present a dialog to the Host asking if Control may access
+   its Screen, Files or Chat). But this event allows you to implemented additional functionality which
+   can give the Host user (or your code) more control over who is allowed to access a specific feature
+   and who isn't. 
+
+   Naturally, any user who is NOT in your "allowed to see me" list, or is disallowed access to specific 
+   functionality in your Host by using the User Access Rights parameters on the TRtcPortalClient component
+   (Host Settins dialog), his requests will be ignored entirely and OnQueryAccess event will NOT be triggered.
+   Only users who would normally have access to the function requested will also trigger the OnQueryAccess
+   event, where you can then decide to disallow access in specific cases or give the Host user the option
+   to decide on a case-by-case basis.
+
+2) New "OnQueryAccess" event for the TRtcDesktopControl, TRtcPFileTransfer and TRtcPChat components on the Control side.
+
+   While the OnQueryAccess events are useful on the Host side to allow the Host to decide on a user-by-user basis
+   which user will be granted access to his Desktop, Files or Chat, the same event when fired on the Control or 
+   Viewer side means that the Host has granted us access to his Desktop, Files or Chat and that a new Session
+   has just been initiated by the Host, so ... we can either Allow this session to continue and start using 
+   it immediately (leave "Allow" as TRUE) or terminate it without ever getting to see the Desktop, File Transfer 
+   or Chat window, notifying the Host to remove us from his user list.
+
+IMPORTANT NOTES:
+
+   The "OnQueryAccess" events have been made available on the components on request of several RTC Portal 
+   users, but they have been left empty (not implemented) for the standard RTC Portal demos, allowing 
+   developers to write theirr own custom code only if they want to extend this feature in their tools.
+
+   If you implement this event, make sure it will not take longer than 20 seconds to complete, because
+   this code is executed from the context of a connection component responsible for receiving data from
+   the Gateway and if this component does not return to the Gateway before time runs out, the client will
+   be disconnected from the Gateway. If you implement this event by using a dialog for the user, that dialog
+   will have to auto-close whithin no more than 20 seconds automatically, selecting what ever you find apropriate. }
+   
+
+--------------------------------
+* RTC PORTAL VCL 3.09
+--------------------------------
+
+1) Gateway Server and ISAPI Projects have been updated to use the new "FixupRequest" property,
+   so that the Gateway can also be accessed through old HTTP/1.0 Proxy Servers and other HTTP Proxy 
+   Servers which are not making any changes in the URL before forwarding it to the Server.
+
+--------------------------------
+* RTC PORTAL VCL 3.08
+--------------------------------
+
+1) Fixed a problem with the "Map Keys" feature when remotely controlling a VM or RDP session.
+
+2) Added a "MarkRemoteCursor" property to the TRtcPDesktopControlUI component, which now allows you to choose 
+   the style (none, circle, square and cross), size (integer value) and 2 colors (defaults to red and maroon)
+   to be used for marking a remote mouse cursor when it is not under RTC Control users direct control
+   (when the user is watching a remote presentation or a remote user is showing him something on the Host PC).
+   
+--------------------------------
+* RTC PORTAL VCL 3.07
+--------------------------------
+
+1) Fixed a bug in the "Get_UserName" and "Post_CtrlAltDel" functions for D2009, which has been 
+   responsible for the <Ctrl+Alt+Del> feature to NOT work with the RTC Host compiled with D2009. 
+
+   Since this bug has now been fixed, using <Ctrl+Alt+Ins> fro RTC Control will now also 
+   work with a RTC Host 3.07 compiled with D2009 to emulate a user pressing <Ctrl+Alt+Del>.
+
+--------------------------------
+* RTC PORTAL VCL 3.06
+--------------------------------
+
+1) "Desktop control" Listbox has been changed in RTC Control and Viewer projects to "Role on the Host".
+
+   Options available as "Role on the Host" are:
+   * Viewer (was View-only)
+   * Teacher (was Manual control)
+   * Supporter (was Auto control)
+   * Admin (was Full control)
+      
+2) Functionality of Desktop Control options has been improved.
+
+* "Admin" is the best option when you are working alone on a remote PC (for example, you are the administrator).
+
+   Using the "Admin" role, remote Host window will behave as if it is a real window into another PC. In other words,
+   you will not have to click somewhere in Host Window to activate it, even if the Host Window is not on top of other windows.
+   And to release control of the Host, you will only have to move your mouse away from the Desktop Host View/Control Window.
+   In other words, as long as your mouse is pointing somewhere inside the Desktop Control window, you are in control, but
+   when you move your mouse outside the Desktop Control window, you are no longer in control of the Host PC and your remote 
+   clipboard is only then being synchronized with your local clipboard. So, if you want to copy/paste things between the
+   Host PC and your local PC while using "Admin" role, you will have to point your mouse at where the action is.
+
+* "Supporter" is the best option when you are giving support to someone else and you want them to also be able to control
+   the mouse without you having to explicitly give them permission by moving the mouse out of your desktop control window.
+
+   In "Supporter" role, any user sitting in the front of the Host PC can simply take their mouse and point it somewhere 
+   else on the screen, immediately placing you in view-only mode until you click somewhere on the screen.
+   You can also change from control to viewer mode by moving your mouse outside of the Desktop Control window or
+   shifting your active focus (using <Alt-Tab> or the <Win> key, for example) to another window or your local Desktop.
+   "Supporter" mode is the most cooperative option in remote control, making the user at the Host into an active participant.
+   Naturally, you will regain control automatically when you press any mouse button inside the Desktop Control Window.
+
+* "Teacher" is the best option when you are teaching or supporting someone who normally does not need to take control of the 
+   mouse while you are on their PC, but you can give them control by moving with your mouse away from the Desktop Control window.
+
+   In "Teacher" role, you will start having full control of the Host PC from the moment you press a mouse button inside the 
+   Host window, until the moment you shift your local focus to another one of your local applications or your desktop.
+   Even if a user sitting in front of the Host PC moves the mouse while you have control, you will not lose control.
+   Pointing with your mouse outside of the Desktop Control window will also not release your control, as in 
+   "Supporter" or "Full control" mode. Only changing focus to another application or your local desktop will.
+
+* "Viewer" is the option you would choose when you only want to watch what a remote user is doing, but do not want to interfere.
+
+   In "Viewer" role, you do not have control of the Host screen.
+
+
+--------------------------------
+* RTC PORTAL VCL 3.05
+--------------------------------
+
+1) More optimizations to reduce CPU usage on the RTC Control side.
+
+2) Additional options for Frame Rate control added:
+
+   Now, the Host can also choose to delay each frame by 10, 20, 40, 50, 80, 100, 200, 250, 400 or 500 miliseconds
+   in addition to already existing options to speficy the maximum Frame Rate in "Frames per Second". 
+   These new frame rate options are mostly useful in situations where you want to keep the CPU usage 
+   low on the Host and Control by defining how long you want the Host to wait between each frame.
+
+3) "Automatic" option in the "Frame Rate" listbox inside the Host settings dialog is renamed to "Maximum".
+
+4) Maximum frame rate is now set to 59 frames per second, which is still enough for a very smooth remote control experience, but 
+   will avoid situations inside LAN where frame rates using prior "Automatic" settings had no limitations and used up to 100% CPU.
+
+--------------------------------
+* RTC PORTAL VCL 3.04
+--------------------------------
+
+1) Minor RTC Control optimizations to reduce CPU usage when Host screen is not changing.
+
+2) Frame Rate option in Desktop Host is now implemented on the Host using a Sleep() function to 
+   throttle down traffic when connection bandwidth would allow a faster frame rate than specified.
+   There is no change in functionality when using Automatic Frame rate.
+
+3) Traffic from a Host using a video mirror driver further reduced when there are no visible changes.
+
+4) There was a bug in the "GetClipboardFiles" function which has been returning the same filename twice
+   and made the Host send the same file to Control two times instead of only once. This has now been fixed.
+
+--------------------------------
+* RTC PORTAL VCL 3.03
+--------------------------------
+
+1) Last update has some project files and forms stored in the new D2009 form, which has resulted in warnings when opening the projects 
+   with older Delphi versions. This has now been fixed and all projects should now open without warnings in older Delphi versions.
+
+--------------------------------
+* RTC PORTAL VCL 3.02
+--------------------------------
+
+1) Code for storing and restoring of ProxyUsername and ProxyPassword values was mixed up, writing ProxyPassword to ProxyUsername and vice versa.
+   As a result, the Host was not working when running as a Windows Service. This has now been fixed.
+
+2) Edit fields for Proxy URL and Username on the Control Settings dialog have been hidden using * instead of making them visible.
+   This has now been fixed, so users can see what they are entering in the Proxy URL and Username fields.
+   
+3) Proxy URL, Username and Password values were not being restored when opening the Connection Settings form. This has now been fixed.
+
+
+--------------------------------
+* RTC PORTAL VCL 3.01
+--------------------------------
+
+1) Added Gate_ProxyAddr, Gate_ProxyBypass, Gate_ProxyUsername and Gate_ProxyPassword properties to the TRtcPortalHttpClient component,
+   allowing easier configaration of the RTC Host, Viewer and Control to work with a specific Proxy Server.
+
+2) Updated RTC Host, Viewer and Control projects to fully utilize the new Gate_ProxyAddr, Gate_ProxyUsername and Gate_ProxyPassword properties.
+
+3) Changed RTC Control and Viewer projects to use the "RtcViewer" compiler directive for compiling the project with View-only features.
+   If "RtcViewer" compiler directive is not defined, project will be compiled with the full Control featureset.
+
+   This change eliminates the necessity to manually define the "RtcControl" compiler directive to compile the full RTC Control project in D2009,
+   but adds the requirement to manually define the "RtcViewer" compiler directive in the RTC Viewer project in D2009 if you are using the Viewer.
+
+4) RTC Gateway ISAPI is now working with a 20 seconds response timeout instead of 250ms, which will reduce traffic when using the Gateway as ISAPI, 
+   but could cause Apache or IIS WebServers to start stalling if their thread pool is not large enough to handle all connected clients.
+
+--------------------------------
+* RTC PORTAL VCL 3.0 - RC3
+--------------------------------
+
+1) Fixed a minor bug in the Viewer/Control which was causing the mouse cursor to have a trail
+   (there were two mouse cursors visible when the mouse cursor was moving around).
+
+--------------------------------
+* RTC PORTAL VCL 3.0 - RC2
+--------------------------------
+
+1) Fixed a problem with RTC Host which would not work as a Windows Service when compiled with D2009.
+
+
+--------------------------------
+* RTC PORTAL VCL 3.0 Beta - RC1
+--------------------------------
+
+1) RTC Portal VCL is now fully ported to D2009 and has full Unicode support when compiled with D2009.
+
+   This includes support for using unicode usernames and passwords, sending and receiving
+   files and folders with unicode names, and - full unicode chat (when compiled with D2009).
+
+2) RTC Host, Control and Gateway projects are now ported to D2009 and have full Unicode support 
+   (when compiled with D2009). 
+
+RTC Portal VCL and all RTC Portal projects are still compatible with earlier Delphi versions, so you can still
+use the components with older Delphi versions, but in order to use Unicode support, you will need D2009.
+
+RTC Portal VCL 3.0 requires the use of the latest RTC SDK 3.0 version.
+
+---------------------------
+* RTC PORTAL VCL 2.51
+---------------------------
+
+1) Fixed a minor memory leak in RTC Control and Viewer on shutdown.
+
+2) Fixed a problem with Unicode (Chinese) File Names when downloading files using Ctrl+Alt+C.
+
+---------------------------
+* RTC PORTAL VCL 2.50 - Release version
+---------------------------
+
+License Update:
+
+1) End-User License Agreement has been updated to remove restrictions for redistributing executables build with the RTC Portal VCL.
+   For a complete text of the new End-User License Agreement, please read the "License.txt" file (included in this package).
+
+Library update:
+
+1) Added "Close" and "CloseAll" methods to the TRtcPDesktopHost component, allowing the Host to disconnect all or one user from its Desktop.
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC7
+---------------------------
+
+Library updates:
+
+1) Added "CaptureLayeredWindows" option to the rtcPDesktopHost component, allowing the Host to decide if 
+   layered windows should be captured or not. By dafeult, this option will be disabled to improve performance.
+   Same as all other Host options, this option will (by default) be stored on the Gateway.
+
+2) Improved the fix for keeping mouse and keyboard control after user login/logout which was applied in RC6.
+
+Project updates:
+
+1) Fixed a bug in the rdSetHost unit which was causing an exception if the user would change 
+   settings while screen capture is active while being limited to a screen region.
+
+2) Added "Capture layered and transparent windows" option to the rtSetHost dialog box
+
+3) Forms and DataModules from all RTC Portal projects are now stored in the new TEXT Format, 
+   allowing you to use Version Control Software for tracking changes.
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC6
+---------------------------
+
+Library update:
+
+1) Fixed a control loss problem which would occure after a user would log in or out of Windows.
+
+2) Added support for capturing AlphaBlend windows (Hints and semi-transparent windows) when not using a Mirror Driver.
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC5
+---------------------------
+
+Library update:
+
+1) The following public methods were added to the TRtcPDesktopControl component:
+
+    procedure Send_SpecialKey(const UserName:string; const key:string; Sender:TObject=nil);
+    procedure Send_CtrlAltDel(const UserName:string; Sender:TObject=nil);
+    procedure Send_FileCopy(const UserName:string; Sender:TObject=nil);
+
+    procedure Send_HideDesktop(const UserName:string; Sender:TObject=nil);
+    procedure Send_ShowDesktop(const UserName:string; Sender:TObject=nil);
+
+    procedure Send_AltTAB(const UserName:string; Sender:TObject=nil);
+    procedure Send_ShiftAltTAB(const UserName:string; Sender:TObject=nil);
+    procedure Send_CtrlAltTAB(const UserName:string; Sender:TObject=nil);
+    procedure Send_ShiftCtrlAltTAB(const UserName:string; Sender:TObject=nil);
+
+2) The following public methods were added to the TRtcPDesktopControlUI component:
+
+    procedure Send_SpecialKey(const Key:string; Sender:TObject=nil);
+    procedure Send_CtrlAltDel(Sender:TObject=nil);
+    procedure Send_FileCopy(Sender:TObject=nil);
+
+    procedure Send_HideDesktop(Sender:TObject=nil);
+    procedure Send_ShowDesktop(Sender:TObject=nil);
+
+    procedure Send_AltTAB(Sender:TObject=nil);
+    procedure Send_ShiftAltTAB(Sender:TObject=nil);
+    procedure Send_CtrlAltTAB(Sender:TObject=nil);
+    procedure Send_ShiftCtrlAltTAB(Sender:TObject=nil);
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC4
+---------------------------
+
+Library update:
+
+1) Send_Start and Recv_Start properties on the RtcpFileTransferUI component are now correctly updated
+
+Cosmetic project changes:
+
+2) Some elements on main RTC Host, Control, Viewer and Gateway forms reorganized
+
+3) Elements on File Transfer form "compacted" and File Transfer window reduced in size
+
+4) Chat form reduced in size
+
+5) Desktop button will now be visible and usable on the Chat window opened by Control and Viewer
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC3
+---------------------------
+
+Project updates:
+
+1) Application Titles in RTC Host, Viewer, Control and Gateway projects updated
+
+2) Added RTC Logo to RTC Host, Viewer, Control and Gateway Projects main form
+
+3) Replaced Notebook in RTC Gateway with Paged Control for easier maintenance
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC2
+---------------------------
+
+Library updates:
+
+1) Fixed a problem which made it impossible to remotely move, close, minimize and maximize windows owned by the Host process.
+
+2) Fixed a problem with sending files and folders before File Transfer was initialized.
+
+3) Functionality implemented in the "Auto" control mode for the Desktop Control component renamed to "Full" control mode.
+   Ful control mode is useful only when you are alone on the PC and want to have full control of the mouse, from the start.
+
+4) Added new "Auto" control mode to Desktop Control component. This new control mode is now the best choice for remote 
+   customer support, allowing your cursomers and other people on the same PC to directly take over mouse control without
+   you having to explicitly "allow" this to happen. When none of your mouse buttons are pressed and the mouse is moved
+   on the remote Host PC by the user sitting in front of the Host, or by another support person remotely controlling the
+   Host, your mouse control will automatically be released to the others and you will switch to passive viewer mode. 
+   You (Control person) can regain control simply by continuing to use the mouse and click wherever you want/need.
+
+5) The issue with a Host and Control to wait for 5-10 seconds before closing (in some specific cases) should now be fixed.
+
+6) Added NotifyUI() method to the DesktopControl component to allow sending of simple messages to all connected UIs.
+
+Project updates:
+
+7) Implemented a missing "OnLogOut" event on the Desktop Viewer form to propperly close all Desktop View windows after logout.
+
+8) Fixed a display issue in the File Transfer window where status was changed to "DONE" before the file was fully transferred.
+
+9) Changed the "AutoControl" checkbox to a "Mouse control" combo box with 4 options: "View only", "Manual", "Auto" and "Full".
+
+10) Using the NotifyUI() method to automatically update all active Desktop Control/Viewer windows without having to close them.
+
+11) Set the correct File Transfer INBOX path in the RTC Host Service (receiving files).
+
+12) Added Logging for sending and receiving files/folders in the RTC Host Service (log when files are downloaded or uploaded).
+
+---------------------------
+* RTC PORTAL VCL 2.50 - RC1
+---------------------------
+
+This is the first RTC Portal VCL 2.50 release candidate.
+
+1) Removed unecessary events from the TAbsPortalclient component.
+
+2) Added version info to all RTC Portal components (read-only "Version_Portal" property).
+
+------------------------------
+* RTC PORTAL VCL 2.50 - Beta 8
+------------------------------
+
+1) TRtcDesktopControlUI component updated:
+
+  a) Your mouse cursor inside Desktop View/Control box will now correctly show as a white dot when 
+     you are NOT controlling the Host, instead of showing as an arrow. Your mouse cursor will now 
+     also change to a white dot if you were controlling the mouse, but it was moved remotely by the
+     user sitting in front of the Host PC, or by another user controlling the Host PC.
+
+  b) Remote mouse cursor will now have a red dot when it is NOT controlled by you. This is to
+     emphasize the difference between a remote mouse cursor which is controlled by someone else
+     and your own mouse cursor. When you are controlling the remote cursor, there will be no red dot.
+
+  c) Flickering of the remote cursor should now be eliminated in non-scaled 1:1 view.
+
+------------------------------
+* RTC PORTAL VCL 2.50 - Beta 7
+------------------------------
+
+!!! All Client-side RTC Portal Modules have been converted to VCL components !!!
+!!! All Client-side RTC Portal Projects have been converted to use the new VCL components !!!
+
+
+NEW RTC Portal components:
+
+***** CONNECTION components
+
+* TRtcHttpPortalClient :: Connection component 
+    All-in-one connection component for working over the HTTP(S) protocol.
+    Using this component, you will NOT need any extra connection components, since it integrates
+    two RtcHttpClient connection components and publishes all properties for easy setup.
+
+* TRtcPortalClient :: 
+    Connection component used when you need to work with third-party transports based on the RTC SDK.
+
+* TAbsPortalClient :: 
+    Abstract connection class which can be implemented to have all RTC Host, Viewer and Control 
+    components working over ANY transport, completely independent of the RTC SDK transport system.
+
+***** CHAT components
+
+* TRtcPChat ::
+    Implements the complete chat functionality, allowing any user to host a chat room 
+    and/or participate in chat settions (rooms) hosted by other users.
+    It is enough to link this component to a TRtcHttpPortalClient and activate the PortalClient
+    to have a fully functional Chat Server, which others can connect to and join a group chat session.
+
+    For user interaction, this component works win combination with the TRtcPChatUI component (below),
+    which is created for each chatroom in which the user is participating and has events for receiving 
+    all messages from other users in the same chatrooms, as well as methods for sending messages to others.
+
+* TRtcPChatUI ::
+    Chat User Interface component (non-visual) providing access to all methods and events 
+    needed to implement a "chat room", which can be used to communicate with a group of users.
+
+    Example Chat user interface (used by RTC Host, Viewer and Control projects), which can be 
+    freely modified and used for learning purposes, is the "Projects\Modules\rdChat.pas" unit.
+    You can either use this implementation when you need a Chat GUI, or design your own.
+    For example, you could create one form with tabs representing chat rooms, or make an IRC-like
+    interface with a list of rooms instead of having a separate window for every chat room.
+
+
+***** FILE TRANSFER components
+
+* TRtcPFileTransfer ::
+    Implements the complete file transfer functionality, allowing users to exchange files and folders.
+    It is enough to link this component to a TRtcHttpPortalClient and activate the PortalClient
+    to have a fully function "Files Server" using a RTC Gateway for exchanging files and folders.
+    
+    For providing information to the user, this component works in combination with one or more
+    TRtcPFileTransferUI components (one per connected user), which is then used to implement the GUI.
+
+
+* TRtcPFileTransferUI ::
+    File Transfer Interface component (non-visual) providing access to all methods and events
+    needed to visualize File Transfer (create a form in which you can drag/drop files, 
+    see file/folder sending and receiving progress and also terminate file transfer.
+
+    Example File Transfer form (used by RTC Host, Viewer and Control projects), which can be
+    freely modified and used for learning purposes, is the "Projects\Modules\rdFileTrans.pas" unit.
+    You can either use this implementation when you need a File Tranfer GUI, or design your own.
+    For example, you could have your own compact File Transfer form, or integrate file transfer 
+    info into the main form. All options are open. You just need a seaprate UI component per user.
+    How you handle the events and properties is entirely up to you.
+
+***** DESKTOP HOST, VIEW and CONTROL components
+
+* TRtcPDesktopHost ::
+    Implements the complete Desktop Histing functionality needed to allow others to view and/or control a PC.
+    It is enough to link this component to a TRtcHttpPortalClient and activate the PortalClient
+    to create a Host ready to be remotely viewed with RTC Viewer and controlled using RTC Contol.
+    There are only 2 events on this component to notify the Host who is logging in and out of the PC.
+
+    In combination with user access right settings, the Host can be made visible only to a group of users,
+    where one group can only view the screen while the other can also control it. There are also a number
+    of desktop hosting parameters which can either be set locally, or loaded from the gateway.
+
+* TRtcPDesktopControl ::
+    Implements the functionality needed to view and/or control remote hosts.
+
+* TRtcPDesktopControlUI ::
+    Desktop View/Control User Interface component (non-visual) providing access to all methods and events
+    needed to visualize the remote Desktop and implement remote mouse and keyboard control functionality.
+    
+* TRtcPDesktopViewer ::
+    Visual component (TPaintBox descendant) which can be linked to the DesktopControlUI component 
+    to get a fully functional remote viewer and/or controller box. There is no coding needed to
+    have real-time view of the remote host screen and to use the mouse (move, down and up events).
+
+    To also use the keyboard, SendKeyDown() and SendKeyUp() methods have to be called on the UI
+    component from Form's OnKeyDown and OnKeyUp events. To get Mouse Wheel support, SendMouseWheel()
+    method has to be called on the UI component from Form's OnMouseWheel event. Screen is always
+    scaled to fix, while properties on the UI component can be used to check the remote screen size
+    and set the control level for each Host, smooth scaling, remote cursor and Key mapping options.
+
+    Example Desktop View and/or Control form (user by RTC Viewer and Control projects), which can be
+    freely modified and used for learning putposes, is in the "Projects\Modules\rdDesktopView.pas" unit.
+    You can either use this implementation when you need a Desktop View/Control GUI, or design your own.
+
+    For example, you might want to have each Desktop Viewer window in a separate tab inside one Form,
+    or display all Hosts as thumbnails which are updated in real-time, then click on one to expand
+    and take control of the PC. You will only use 1 TRtcPDesktopControl component for the whole app and 
+    create a separate TRtcPDesktpControlUI and TRtcPDesktopViewer component per host you want to view.
+
+NEW RTC Portal VCL components:
+
+* TRtcPModule ::
+    Abstract RTC Portal module (component) which can be implemnted to add more remote functionality
+    to your RTC Portal Clients. It provides direct access to all methods and events needed to implement
+    virtually anything, without having to think about the communications layer in use. 
+
+    TRtcPChat, TRtcPFileTransfer, TRtcPDesktopHost and TRtcPDesktopControl are all TRtcPModule implementations.
+
+***** EXAMPLE projects
+
+* RTC Host 2.50 ::
+    Uses the RTC Portal VCL to implement a fully functional application which you can give your customers
+    when you need to remotely view or control their PC. Works flawlessly over the Internet and inside LAN.
+
+* RTC Viewer 2.50 ::
+    Uses the RTC Portal VCL to implement a fully functional application which you can give your customers
+    or potential customers when you need to show them your screen. This is useful for making remote
+    presentations and for teaching a group of users how to use your applications.
+
+* RTC Control 2.50 ::
+    Uses the RTC Portal VCL to implement a fully function application which you can use to remotely view
+    and/or control a PC using RTC Host 2.50, with built-in chat, file transfer and desktop control.
+    
+* RTC Gateway 2.50 ::
+    Server to which RTC Host, Viewer and Control will connect to communicate. Can be installed 
+    inside your LAN (need to set up port forwarding on your router) or on a hosted Windows Server.
+
+* RTC Gateway 2.50 ISAPI ::
+    ISAPI DLL extension which can be installed in all Windows-based ISAPI-capable Servers to integrate 
+    the RTC Gateway functionality into the Server. This ISAPI DLL is useful if you are not in a position
+    to have a separate Server for remote support, but already have some WebServer running under Windows
+    where you have the abbility to install your own ISAPI DLLs. For the RTC Host, Viewer and Control to
+    work with the ISAPI instead of a stand-alone server, you only need to enter the Gate_ISAPI path.
+
+
+-----------------
+* RTC PORTAL 2.07
+-----------------
+
+1) "Load History", "Save History" and "Copy to Clipboard" options added as a pop-up menu for Chat History.
+
+2) Cursor will no longer continue blinking when the Chat window looses focus.
+   A blinking cursor when the Chat window didn't have Focus has been causing confusion,
+   making you think that the window is active and ready to accept keyboard input. This is now fixed.
+
+3) Window positions of the Main, Chat and File Transfer windows will now automatically 
+   be stored when closing, and loaded when opening on RTC Host, Viewer and Control.
+
+   Since there could be more than one Chat and/or File Transfer window open at a time (one per user),
+   positions of Chat and File Transfer windows are stored and loaded separately for every user.
+
+   Window positions are saved in a separate ".INI" file, 
+   which can be deleted to restore all windows to their default positions.
+
+4) Added Copy/Paste pop-up menu to Text in all chat boxes. 
+   You can now right-click on any text you see in any chat box to Copy it to your Clipboard
+   and use Paste to simulate "typing" that text into your Chat box.
+
+5) Host modified to accept commandline parameter "Autorun". If this word is present anywhere
+   on the commandline, the Host will attempt to automatically login and minimize. If the login attempt
+   fails, the user will have to use the START button as usual. If the user has a password for his
+   Gateway account, then the "Save my password" checkbox must be checked for Autorun to succeed.
+
+6) Fixed a minor issue with the Desktop View Window, where "GetActiveWindow" function was used 
+   instead of "GetForgroundWindow" to determine if the current window has user focus. 
+
+-----------------
+* RTC PORTAL 2.06
+-----------------
+
+1) RTC Host, Viewer and Control updated to send the Host Request Header (same as Gateway Address). 
+   Previous versions weren't sending the HOST Request Header, which has resulted in problems using 
+   some WebServers (for example, the Apache and Abyss WebServers required the "Proxy" setting checked).
+   The missing HOST request header could also have resulted in problems with some Proxy Servers.
+   This should now be fixed.
+
+-----------------
+* RTC PORTAL 2.05
+-----------------
+
+1) RTC Host, Viewer, Control and Gateway now also compile with Delphi 4, 5 and 6, but ... the mirror driver will NOT work with a RTC Host compiled using Delphi 4 or 5 (it should work with D6 and later). The problem seems to be that older Delphi versions have some default types declared differently than newer Delphi versions, which will result in the mirror driver to start overwriting memory parts when activated. All functions except for the mirror driver will work normally - if you do not try to compile the RTC Host in Delphi 4 or 5 with the mirror driver option.
+
+-----------------
+* RTC PORTAL 2.04
+-----------------
+
+1) Fixed Application Titles for RTC Viewer and RTC Control
+
+2) Fixed <Win+S> and <Win+W> keys in Desktop View from the RTC Viewer
+
+3) Disabled "Map Keys" and "Auto Control" checkboxes in the RTC Viewer
+
+4) Fixed settings for "Smooth View" and "Exact Cursor" on new Desktop Windows in RTC Viewer
+
+-----------------
+* RTC PORTAL 2.03
+-----------------
+
+1) "Re-Login" option for the RTC Host, Viewer and Control didn't work when the connection was getting lost very often during transfer. This has been fixed now.
+
+2) Fixed a possible exception in RTC Viewer and Control when the user would click "Desktop" fast multiple times.
+
+3) Exception logging is now enabled for RTC Host, Viewer, Control and Gateway.
+
+
+-----------------
+* RTC PORTAL 2.02
+-----------------
+
+1) RTC Control has been storing the value for "AutoConnect" under "AutoControl" and doing the same while loading. In other words, the "AutoControl" option was not being stored propperly. This has now been fixed.
+
+-----------------
+* RTC PORTAL 2.01
+-----------------
+
+1) Gateway exe was using it's Forms "Caption" to Decrypt the "INF" file instead of a fixed string. This has now been corrected, so you can freely change the Gateway caption.
+
+2) Going to Full Screen mode without scaling (using <Win+W>) did not show Scrolbars in Destkop View/Control when the Host screen was larger than Control/Viewer screen. This has now been fixed.
+
+---------------------------------------------------------
+* RTC PORTAL 2.0 - first official release
+---------------------------------------------------------
+
+1) Host can define separate rights for normal users and super users.
+
+2) Control can remotely Control or View Host's Desktop and use automatic Clipboard synchronization between Host and Control. In other words, what ends-up on your (Control) clipboard while using remote desktop control will automatically be sent to the Host, while anything you put on Host's clipboard will automatically be sent to your (Control) PC.
+
+3) Control can send (upload) files or folders to Host by (a) dragging them into the Desktop Control window, (b) dragging them into the Chat window with the Host, or (c) opening the "File Transfer" window and dragging the files into the File Transfer window for that Host.
+
+4) Control can download a file or folder from Host by (a) using Desktop Control to select the file/folder in Windows File Explorer on the Host and pressing <Ctrl+Alt+C> (this also works with Host as a Service), or (b) dragging the file into Host's main form (only works with Host as a normal app - not as a service), or (c) opening the "File Transfer" window using RTC Control, getting the window up (will be started minimized) and dragging files or folders into the "File Transfer" window using remote desktop control on Host (works only with Host as a normal app - NOT as a Service).
+
+5) Viewer and Control can initiate a Chat session with the Host. All Viewers and Controls on the same Host will be participating in one group chat, so that everyone will be able to read everything and write to everyone else. This works in a way that Host is re-sending anything it receives from any chat participant to all other chat participants. If Host should close it's chat window, chat session will be terminated for all participants using that Host for the chat.

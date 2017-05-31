@@ -1,7 +1,9 @@
 RTC Portal VCL
+
 http://www.realthinclient.com
 
 Copyright (c) 2003-2017 RealThinClient components
+
 All Rights reserved.
 
 --------------------------------
@@ -10,6 +12,8 @@ All Rights reserved.
 1.) Installing Portal components and compiling Demos
 
 2.) RTC Portal Host with a Video Mirror Driver
+
+3.) Emulating Ctrl+Alt+Del
 
 ********************************
 --------------------------------
@@ -48,3 +52,18 @@ RTC Portal Host can use the DemoForge Mirage Driver for faster screen capture.
 
 DemoForge Mirage Driver is available directly from DemoForge:
 > http://www.demoforge.com/dfmirage.htm
+
+
+-----------------------------------------------
+3.) Emulating Ctrl+Alt+Del
+-----------------------------------------------
+
+For the abbility to emulate <Ctrl+Alt+Del> when the Host is running as a Windows Service,
+the "aw_sas32.dll" file has to be placed in the same folder as the RTC HOST executable.
+
+"aw_sas32.dll" was developed by Jose Pascoa and can be dowloaded here:
+https://softltd.wordpress.com/simulate-ctrl-alt-del-in-windows-vista-7-and-server-2008/
+
+... and here:
+https://softltd.wordpress.com/
+https://softltd.wordpress.com/about/ 

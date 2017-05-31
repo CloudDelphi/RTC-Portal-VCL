@@ -62,6 +62,7 @@ For the abbility to emulate <Ctrl+Alt+Del> when the Host is running as a Windows
 the "aw_sas32.dll" file has to be placed in the same folder as the RTC HOST executable.
 
 "aw_sas32.dll" was developed by Jose Pascoa and can be dowloaded here:
+
 https://softltd.wordpress.com/simulate-ctrl-alt-del-in-windows-vista-7-and-server-2008/
 
 ... or here:

@@ -64,6 +64,5 @@ the "aw_sas32.dll" file has to be placed in the same folder as the RTC HOST exec
 "aw_sas32.dll" was developed by Jose Pascoa and can be dowloaded here:
 https://softltd.wordpress.com/simulate-ctrl-alt-del-in-windows-vista-7-and-server-2008/
 
-... and here:
+... or here:
 https://softltd.wordpress.com/
-https://softltd.wordpress.com/about/ 

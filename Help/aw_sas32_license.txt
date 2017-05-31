@@ -1,2 +1,4 @@
 The aw_sas32.dll (required to simulate Ctrl+Alt+Del) can be downloaded here:
 https://softltd.wordpress.com/simulate-ctrl-alt-del-in-windows-vista-7-and-server-2008/
+... or here:
+https://softltd.wordpress.com/

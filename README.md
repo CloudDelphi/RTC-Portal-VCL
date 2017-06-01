@@ -33,8 +33,8 @@ A) RTC SDK *LITE* is available from GitHub:
   > https://github.com/DTkalcec/sdk-lite
 
 LITE edition of the RTC SDK includes everything required to compile
-RTC Portal components and Demos with Delphi for the Win32 platform.
-(some limitations apply, check RTC SDK *LITE* README for details)
+RTC Portal components and Demos with Delphi for the Win32 platform
+(some limitations apply, check RTC SDK *LITE* README for details).
   
 B) RTC SDK *Starter* edition is available here:
   > http://www.realthinclient.com/download/

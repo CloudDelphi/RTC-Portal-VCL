@@ -24,10 +24,26 @@ All Rights reserved.
 
 RTC Portal is compatible with Delphi 7 - 10.2 for the Win32 platform.
 
-To be able to open and compile the RTC Portal projects, you first
-need to install the RealThinClient SDK v8.04 or later, available from:
+To be able to open and compile the RTC Portal projects, 
+you will need to install the RealThinClient SDK v8.04 or later.
 
-> http://www.realthinclient.com/download/
+There are three editions of the RTC SDK v8 available.
+
+A) RTC SDK *LITE* is available from GitHub:
+  > https://github.com/DTkalcec/sdk-lite
+
+LITE edition of the RTC SDK includes everything required to compile
+RTC Portal components and Demos with Delphi for the Win32 platform.
+  
+B) RTC SDK *Starter* edition is available here:
+  > http://www.realthinclient.com/download/
+
+Starter editons of the RTC SDK include all components from the
+commercial RTC SDK release, but are limited to 10 connections and
+can ONLY be used to compile Win32 Projects with Delphi 7 - 10.2
+
+C) Full *commercial* RTC SDK version can be ordered here:
+  > http://www.realthinclient.com/priceorder/
 
 To intall the RealThinClient SDK, please follow the instructions
 from the "readme.txt" file in the RealThinClient SDK package.

@@ -13,7 +13,7 @@ uses
   Forms, // D4
 
   rtcLog, rtcInfo, rtcCrypt,
-  rtcThrPool, rtcHWndPool,
+  rtcThrPool,
 
   rtcISAPISrv, rtcConn, rtcDataSrv,
   rtcSrvModule, rtcPortalGate;

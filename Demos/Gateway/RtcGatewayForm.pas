@@ -17,7 +17,7 @@ uses
 {$ENDIF}
 
   rtcLog, rtcCrypt,
-  rtcThrPool, rtcHWndPool,
+  rtcThrPool,
   rtcSrvModule, rtcPortalGate,
   rtcDataSrv, rtcHttpSrv,
   rtcInfo, rtcConn,

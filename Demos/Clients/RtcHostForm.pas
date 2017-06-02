@@ -18,7 +18,7 @@ uses
 {$ENDIF}
 
   rtcInfo, rtcLog, rtcCrypt, rtcFastStrings,
-  rtcThrPool, rtcHwndPool, rtcWinLogon,
+  rtcThrPool, rtcWinLogon,
 
   RtcHostSvc,
 

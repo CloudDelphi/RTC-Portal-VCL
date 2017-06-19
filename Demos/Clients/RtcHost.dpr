@@ -54,7 +54,7 @@ try
       if pos('-SILENT',uppercase(CmdLine))<>0 then s:=s+' -SILENT';
       Write_File(ChangeFileExt(AppFileName,'.run'),s);
 
-      ShellExecute(0,'open',PChar(AppFileName),'/INSTALL /SILENT',nil,SW_SHOW);
+      ShellExecute(0,'open',PChar(String(AppFileName)),'/INSTALL /SILENT',nil,SW_SHOW);
       Sleep(500);
       ShellExecute(0,'open','net',PChar('start '+RTC_HOSTSERVICE_NAME),nil,SW_HIDE);
       cnt:=0;
@@ -65,7 +65,7 @@ try
       Sleep(500);
       // Service will return FALSE from its "Start" event,
       // so it does not have to be stopped manually, we can simply uninstall it.
-      ShellExecute(0,'open',PChar(AppFileName),'/UNINSTALL /SILENT',nil,SW_HIDE);
+      ShellExecute(0,'open',PChar(String(AppFileName)),'/UNINSTALL /SILENT',nil,SW_HIDE);
 
       if File_Exists(ChangeFileExt(AppFileName,'.run')) then
         begin

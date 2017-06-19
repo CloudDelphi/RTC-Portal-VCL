@@ -475,12 +475,12 @@ procedure TMainForm.xISAPIClick(Sender: TObject);
 procedure TMainForm.btnInstallClick(Sender: TObject);
   begin
   SaveSetup;
-  ShellExecute(0,'open',PChar(AppFileName),'/INSTALL',nil,SW_SHOW);
+  ShellExecute(0,'open',PChar(String(AppFileName)),'/INSTALL',nil,SW_SHOW);
   end;
 
 procedure TMainForm.btnUninstallClick(Sender: TObject);
   begin
-  ShellExecute(0,'open',PChar(AppFileName),'/UNINSTALL',nil,SW_SHOW);
+  ShellExecute(0,'open',PChar(String(AppFileName)),'/UNINSTALL',nil,SW_SHOW);
   end;
 
 procedure TMainForm.btnRunClick(Sender: TObject);

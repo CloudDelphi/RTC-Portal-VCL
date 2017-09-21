@@ -1,4 +1,5 @@
-{ Copyright 2004-2017 (c) RealThinClient.com (http://www.realthinclient.com) }
+{ Copyright 2004-2017 (c) RealThinClient.com (http://www.realthinclient.com)
+  Copyright © 1999,2003 Michal Mutl (http://www.mitec.cz) }
 
 unit rtcpFileUtils;
 

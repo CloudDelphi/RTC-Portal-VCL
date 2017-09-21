@@ -1,9 +1,9 @@
 (* ******************************************************
-  File Explorer component,
-  
+  File Explorer component,  
   Copyright 2004-2017 (c) RealThinClient.com (http://www.realthinclient.com)
 
-  Based on MiTeC Component  by Michal Mutl
+  Based on MiTeC File Explorer Component by Michal Mutl,
+  Copyright © 1999,2003 Michal Mutl (http://www.mitec.cz)
 
   @exclude
   ****************************************************** *)

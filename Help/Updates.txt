@@ -1,27 +1,29 @@
-Version date: May 21st 2017.
+Version date: October 5th 2017.
 
 --------------------------------
-* RTC PORTAL v5.05
+* RTC PORTAL v5.08 (2017.Q3)
 --------------------------------
 
-1. Updated "Show_Wallpaper" function in the "rtcScrUtils.pas" unit (faster?).
-
-2. Added a call to "Show_Wallpaper" before closing the RTC Portal Host.
+1. Removed references to "memBinList" and "memObjList" units (not used).
 
 --------------------------------
-* RTC PORTAL v5.04 (2017.Q2)
+* RTC PORTAL v5.07 (2017.Q2)
 --------------------------------
 
 ********************************************************************************
-* This RTC Portal version requires RealThinClient SDK v8.04 (2017.Q2) or later *
+* This RTC Portal version requires RealThinClient SDK v8.14 (2017.Q2) or later *
 ********************************************************************************
 
 1) Updated RTC Portal VCL components and Demos to compile and work correctly 
-   with RealThinClient SDK v8.04 (2017.Q2), see RTC SDK update logs for details.
+   with RealThinClient SDK v8.14 (2017.Q2), see RTC SDK update logs for details.
 
 2) Updated "RTCHost" and "RTCControl" Demos to un-check the "Auto Re-Login" checkbox
    (to disable automatic re-login attempts) when the user clicks the "LOG OUT" button.
    
+3) Updated "Show_Wallpaper" function in the "rtcScrUtils.pas" unit (faster?).
+
+4) Added a call to "Show_Wallpaper" before closing the RTC Portal Host.
+
 --------------------------------
 * RTC PORTAL v4.12
 --------------------------------

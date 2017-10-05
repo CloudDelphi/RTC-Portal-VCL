@@ -10,8 +10,6 @@ uses
   SysUtils, Classes,
   Windows, ComObj, ActiveX,
 
-  memObjList,
-
   rtcLog, rtcFastStrings, SyncObjs,
   rtcZLib, rtcInfo, rtcConn,
   rtcFunction, rtcDataCli, rtcCliModule,

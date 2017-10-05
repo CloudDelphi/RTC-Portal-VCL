@@ -15,7 +15,6 @@ uses
   Clipbrd,
   Registry,
 
-  memBinList,
   rtcLog,
   rtcInfo,
   rtcWinLogon;

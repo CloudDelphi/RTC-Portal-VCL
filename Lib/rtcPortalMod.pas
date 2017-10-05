@@ -13,7 +13,7 @@ uses
 
 const
   // Version of the RTC PORTAL components
-  RTCPORTAL_VERSION: String = 'v5.07 (2017.Q2)';
+  RTCPORTAL_VERSION: String = 'v5.08 (2017.Q3)';
 
 type
   (* Copy the lines below to a new unit when you want to implement a new Module for the RTC Portal Client.

@@ -5,7 +5,7 @@ interface
 uses
   Windows, SysUtils, Classes, Graphics, jpeg,
 
-  rtcInfo, rtcpDesktopControlUI,
+  rtcSystem, rtcInfo, rtcpDesktopControlUI,
   rtcPortalMod, rtcpDesktopControl;
 
 type

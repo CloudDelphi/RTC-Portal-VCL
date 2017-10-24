@@ -13,7 +13,9 @@ uses
   UITypes,
 {$ENDIF}
 
-  dmSetRegion, ShellApi, rtcInfo,
+  dmSetRegion, ShellApi,
+
+  rtcSystem, rtcInfo,
 
   rtcPortalMod, rtcpFileTrans, rtcWinLogon,
   rtcpChat, rtcpDesktopConst, rtcpDesktopHost, Spin;

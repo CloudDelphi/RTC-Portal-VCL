@@ -13,7 +13,10 @@ uses
 {$ELSE}
   FileCtrl,
 {$ENDIF}
-  rtcLog, rtcSyncObjs, rtcInfo,
+
+  rtcSystem,
+  rtcLog,
+  rtcInfo,
 
   rtcpFileTrans;
 

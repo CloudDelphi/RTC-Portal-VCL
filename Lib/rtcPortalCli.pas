@@ -8,9 +8,9 @@ interface
 
 uses
   SysUtils, Classes,
-  Windows, ComObj, ActiveX,
+  Windows, ComObj, ActiveX, SyncObjs,
 
-  rtcLog, rtcFastStrings, SyncObjs,
+  rtcSystem, rtcLog,
   rtcZLib, rtcInfo, rtcConn,
   rtcFunction, rtcDataCli, rtcCliModule,
 

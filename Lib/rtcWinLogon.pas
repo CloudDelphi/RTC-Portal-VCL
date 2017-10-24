@@ -20,7 +20,7 @@ uses
   rtcTSCli,
 {$ENDIF RTC_LBFIX}
 
-  rtcFastStrings;
+  rtcSystem;
 
 const
   DESKTOP_ALL = DESKTOP_CREATEMENU or DESKTOP_CREATEWINDOW or

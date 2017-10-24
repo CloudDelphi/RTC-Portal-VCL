@@ -16,6 +16,8 @@ uses
   Registry,
 
   rtcLog,
+  rtcSystem,
+  
   rtcInfo,
   rtcWinLogon;
 

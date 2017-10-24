@@ -16,8 +16,10 @@ unit dfmVideoDriver;
 interface
 
 uses
-  Windows, Classes, Registry, SysUtils,
-  rtcCompress, rtcInfo, Forms, rtcLog;
+  Windows, Classes, Registry, SysUtils, Forms,
+
+  rtcCompress, rtcSystem,
+  rtcInfo, rtcLog;
 
 const
   MAX_SCREEN_WIDTH = 16384;

@@ -8,7 +8,7 @@ interface
 
 uses
   Windows, Classes, SysUtils, {$IFNDEF IDE_1} Variants, {$ENDIF}
-  rtcLog, rtcSyncObjs, rtcInfo, rtcPortalMod;
+  rtcLog, rtcSystem, rtcInfo, rtcPortalMod;
 
 type
   TRtcPCustomCommand = class;

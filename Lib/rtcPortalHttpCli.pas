@@ -9,7 +9,7 @@ interface
 uses
   Classes, Windows, rtcConn, SysUtils,
 
-  rtcTypes, rtcFastStrings, rtcPlugins,
+  rtcTypes, rtcSystem, rtcPlugins,
   rtcPortalMod, rtcPortalCli, rtcHttpCli;
 
 type

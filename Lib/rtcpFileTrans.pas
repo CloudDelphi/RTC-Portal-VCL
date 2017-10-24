@@ -9,9 +9,9 @@ interface
 uses
   Windows, Classes, SysUtils,
 {$IFNDEF IDE_1} Variants, {$ELSE} FileCtrl, {$ENDIF}
-  ShellAPI,
+  ShellAPI, SyncObjs,
 
-  rtcLog, SyncObjs,
+  rtcLog, rtcSystem,
   rtcInfo, rtcPortalMod,
   rtcpFileUtils;
 

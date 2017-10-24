@@ -16,10 +16,11 @@ uses
 {$ENDIF}
   rtcInfo, rtcLog, rtcZLib, SyncObjs, rtcScrUtils,
 
-  rtcCompress, rtcWinLogon, rtcFastStrings
 {$IFDEF KMDriver}
-    , MouseAInf
-{$ENDIF};
+  MouseAInf,
+{$ENDIF}
+
+  rtcCompress, rtcWinLogon, rtcSystem;
 
 var
   RTC_CAPTUREBLT: DWORD = $40000000;

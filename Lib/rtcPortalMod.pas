@@ -9,11 +9,11 @@ interface
 uses
   SysUtils, Classes,
 
-  rtcFastStrings, rtcLog, SyncObjs, rtcInfo;
+  rtcLog, SyncObjs, rtcInfo;
 
 const
   // Version of the RTC PORTAL components
-  RTCPORTAL_VERSION: String = 'v5.08 (2017.Q3)';
+  RTCPORTAL_VERSION: String = 'v5.09 (2017.Q4)';
 
 type
   (* Copy the lines below to a new unit when you want to implement a new Module for the RTC Portal Client.

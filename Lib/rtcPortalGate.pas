@@ -19,7 +19,7 @@ uses
 
   rtcLog,
 
-  rtcSyncObjs, rtcFunction, rtcInfo,
+  rtcSystem, rtcFunction, rtcInfo,
   rtcConn, rtcDataSrv, rtcSrvModule;
 
 const

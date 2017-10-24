@@ -11,7 +11,7 @@ uses
 {$IFNDEF IDE_1}
   Variants,
 {$ENDIF}
-  rtcLog, rtcSyncObjs,
+  rtcSystem, rtcLog,
   rtcInfo, rtcpChat;
 
 type

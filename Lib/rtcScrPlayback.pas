@@ -14,9 +14,10 @@ uses
   Graphics,
   Forms,
 
+  rtcSystem,
+
   rtcInfo,
   rtcZLib,
-  rtcSyncObjs,
 
   rtcCompress;
 

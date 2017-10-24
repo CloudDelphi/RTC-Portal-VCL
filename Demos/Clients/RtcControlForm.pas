@@ -17,7 +17,7 @@ uses
   UITypes,
 {$ENDIF}
 
-  rtcThrPool,
+  rtcSystem, rtcThrPool,
   rtcLog, rtcCrypt, rtcInfo, rtcConn,
   rtcDataCli, rtcHttpCli,
 

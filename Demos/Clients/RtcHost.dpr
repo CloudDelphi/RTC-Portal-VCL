@@ -23,7 +23,7 @@ uses
   WinSvc,
   Forms,
   ShellApi,
-  rtcFastStrings,
+  rtcSystem,
   RtcHostForm in 'RtcHostForm.pas' {MainForm},
   RtcHostSvc in 'RtcHostSvc.pas' {Rtc_HostService: TService},
   dmSetRegion in '..\Modules\dmSetRegion.pas' {dmSelectRegion},

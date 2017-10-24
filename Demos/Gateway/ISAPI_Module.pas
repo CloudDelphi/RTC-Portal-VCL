@@ -12,7 +12,8 @@ uses
 
   Forms, // D4
 
-  rtcLog, rtcInfo, rtcCrypt,
+  rtcLog, rtcInfo,
+  rtcSystem, rtcCrypt,
   rtcThrPool,
 
   rtcISAPISrv, rtcConn, rtcDataSrv,

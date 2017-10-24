@@ -12,7 +12,7 @@ uses
   Graphics, Controls, SvcMgr, Dialogs,
 
   rtcLog, rtcInfo, rtcCrypt,
-  rtcThrPool,
+  rtcSystem, rtcThrPool,
 
   rtcSrvModule, rtcPortalGate,
   rtcDataSrv, rtcConn, rtcHttpSrv;

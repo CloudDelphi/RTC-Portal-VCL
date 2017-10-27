@@ -1,12 +1,19 @@
-Version date: October 24th 2017.
+Version date: October 27th 2017.
 
 --------------------------------
-* RTC PORTAL v5.09 (2017.Q4)
+* RTC PORTAL v5.10 (2017.Q4)
 --------------------------------
 
-**********************************************************************
-* This RTC Portal version requires RealThinClient SDK v8.40 or later *
-**********************************************************************
+*******************************************************************
+* This RTC Portal version requires RealThinClient SDK v9 or later *
+*******************************************************************
+
+1) Fixed a bug in "TRtcPortalGateway.Notification" method causing an Access Violation 
+   every time the component would be destroyed (even at design-time in the Delphi IDE).
+
+--------------------------------
+* RTC PORTAL v5.09
+--------------------------------
 
 1) Updated RTC Portal VCL components and Demos to compile and work correctly 
    with the RealThinClient SDK v8.40, see RTC SDK update logs for details.

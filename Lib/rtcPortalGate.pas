@@ -2292,8 +2292,9 @@ procedure TRtcPortalGateway.Notification(AComponent: TComponent; Operation: TOpe
   if Operation=opRemove then
     if AComponent=FUsers then
       FUsers:=FDefaultUserAccess
-    else if AComponent=FnGroup.HelperGroup then
-      FnGroup.HelperGroup:=nil;
+    else if assigned(FnGroup) then
+      if AComponent=FnGroup.HelperGroup then
+        FnGroup.HelperGroup:=nil;
   end;
 
 { TRtcPortalUserAccess }

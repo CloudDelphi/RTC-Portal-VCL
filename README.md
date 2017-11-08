@@ -15,6 +15,8 @@ All Rights reserved.
 
 3.) Emulating Ctrl+Alt+Del
 
+4.) Disclaimer
+
 ********************************
 --------------------------------
 
@@ -77,3 +79,14 @@ https://softltd.wordpress.com/simulate-ctrl-alt-del-in-windows-vista-7-and-serve
 
 ... or here:
 https://softltd.wordpress.com/
+
+-----------------------------------------------
+4.) Disclaimer
+-----------------------------------------------
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT SUPPORT AND WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS 
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
